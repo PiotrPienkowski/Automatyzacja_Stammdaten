@@ -1,7 +1,7 @@
 import shutil
 import pandas as pd
 import datetime as dt
-import win32com.client as win32
+import win32com.client as  win32
 import os
 
 ##1  Definiujemy zmienne globalne
@@ -76,7 +76,7 @@ excel.Quit()
 outlook = win32.Dispatch("Outlook.Application")
 mail = outlook.CreateItem(0)
 mail.Display()
-mail.To = "stammdaten@elancoah.com"
+mail.To = "piotr.pienkowski@elancoah.com"
 mail.subject = rf"Central Order Block vs delf de and ch  {today}"
 mail.body = mail.body = (f"Hello All, \n\n"
                          f"Please find central order block for DE and CH {today}. \n\n"
