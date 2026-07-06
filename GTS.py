@@ -22,23 +22,29 @@ def C08(CN,BTM):
     wb.Close(SaveChanges=False)
 
 
+
     wb1 = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\BTM Template.xlsx')
     ws1 = wb1.Worksheets('de')
     wb1.RefreshAll()
     excel.CalculateUntilAsyncQueriesDone()
     data1 = ws1.UsedRange.Value
     df = pd.DataFrame(data1)
-    df =df[df[8].astype(str) == str(CN)]
-    df[0] = '342'
-    df[1] = BTM
+
+    # pierwszy wiersz -> nagłówki
+    df.columns = df.iloc[0]
+
+    # usuń pierwszy wiersz
+    df = df.iloc[1:].reset_index(drop=True)
+    df = df[df['Kundennummer'].astype(str).str.replace('.0', '', regex=False) == CN]
+    df['KLIENT'] = '342'
+    df['NR_BTM'] = BTM
 
     new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx'
     df.to_excel(new_file1, index=False)
     wb1.Close(SaveChanges=False)
     excel.Quit()
 
-
-C08('50001442','252452')
+C08('50021166','252452')
 
 
 
