@@ -3,7 +3,7 @@ import pandas as pd
 import os
 
 def C08(CN,BTM):
-    excel = win32.Dispatch('Excel.Application')
+    excel = win32.DispatchEx('Excel.Application')
     excel.Visible = False
     wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
     ws = wb.Worksheets('Sheet1')
@@ -87,7 +87,7 @@ def C08(CN,BTM):
     new_mail.Display()
 
 def C06(CN):
-    excel = win32.Dispatch('Excel.Application')
+    excel = win32.DispatchEx('Excel.Application')
     excel.Visible = False
     wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
     ws = wb.Worksheets('Sheet1')
@@ -111,7 +111,7 @@ def C06(CN):
 
 
 def C34(CN):
-    excel = win32.Dispatch('Excel.Application')
+    excel = win32.DispatchEx('Excel.Application')
     excel.Visible = False
     wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
     ws = wb.Worksheets('Sheet1')
@@ -133,7 +133,7 @@ def C34(CN):
     excel.Quit()
 
 def C33(CN):
-    excel = win32.Dispatch('Excel.Application')
+    excel = win32.DispatchEx('Excel.Application')
     excel.Visible = False
     wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
     ws = wb.Worksheets('Sheet1')
@@ -155,4 +155,4 @@ def C33(CN):
 
 #######################
 
-C08('50019163','123')
+C34('50718370')
