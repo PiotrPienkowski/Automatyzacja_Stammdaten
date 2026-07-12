@@ -107,5 +107,5 @@ mail.body = mail.body = (f"Hello All, \n\n"
                          f"privacy.elanco.com"
                          )
 
-mail.Send()
+mail.Display()
 ##
