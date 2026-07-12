@@ -4,19 +4,19 @@ import os
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 
-excel = win32.DispatchEx('Excel.Application')
-excel.Visible = False
-wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
-ws = wb.Worksheets('Sheet1')
-ws.Range('A12').Value = 'DE01'
-ws.Range('B12').Value = 'Change'
-ws.Range('C12').Value = 'Sold-to'
-excel.Application.Run("CreatingHeader")
-
-excel.CalculateUntilAsyncQueriesDone()
 
 def C08(CN,BTM):
 
+    excel = win32.DispatchEx('Excel.Application')
+    excel.Visible = False
+    wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
+    ws = wb.Worksheets('Sheet1')
+    ws.Range('A12').Value = 'DE01'
+    ws.Range('B12').Value = 'Change'
+    ws.Range('C12').Value = 'Sold-to'
+    excel.Application.Run("CreatingHeader")
+
+    excel.CalculateUntilAsyncQueriesDone()
 # runowanie makra vba
 
     ws.Range('E5').Value = CN
@@ -147,7 +147,7 @@ def C33(CN):
 
 #######################
 
-
+C06('50891051')
 
 # haslo = input('jaka chcesz zalozyc licencje: ').strip().upper()
 #
