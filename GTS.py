@@ -4,22 +4,20 @@ import os
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 
+excel = win32.DispatchEx('Excel.Application')
+excel.Visible = False
+wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
+ws = wb.Worksheets('Sheet1')
+ws.Range('A12').Value = 'DE01'
+ws.Range('B12').Value = 'Change'
+ws.Range('C12').Value = 'Sold-to'
+excel.Application.Run("CreatingHeader")
+
+excel.CalculateUntilAsyncQueriesDone()
 
 def C08(CN,BTM):
-    excel = win32.DispatchEx('Excel.Application')
-    excel.Visible = False
-    wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
-    ws = wb.Worksheets('Sheet1')
-
 
 # runowanie makra vba
-
-    ws.Range('A12').Value = 'DE01'
-    ws.Range('B12').Value = 'Change'
-    ws.Range('C12').Value = 'Sold-to'
-    excel.Application.Run("CreatingHeader")
-
-    excel.CalculateUntilAsyncQueriesDone()
 
     ws.Range('E5').Value = CN
     ws.Range('E23').Value = "C08"
@@ -68,7 +66,7 @@ def C08(CN,BTM):
     wb3.close()
 
     wb1.Close(SaveChanges=False)
-    excel.Quit()
+
 
 
 
@@ -111,17 +109,7 @@ def C08(CN,BTM):
     new_mail.Display()
 
 def C06(CN):
-    excel = win32.DispatchEx('Excel.Application')
-    excel.Visible = False
-    wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
-    ws = wb.Worksheets('Sheet1')
 
-    # runowanie makra vba
-
-    ws.Range('A12').Value = 'DE01'
-    ws.Range('B12').Value = 'Change'
-    ws.Range('C12').Value = 'Sold-to'
-    excel.Application.Run("CreatingHeader")
 
     ws.Range('E5').Value = CN
     ws.Range('E23').Value = "C06"
@@ -131,20 +119,9 @@ def C06(CN):
     path = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C06 licence.xlsm'
     wb.SaveAs(path)
     wb.Close(SaveChanges=False)
-    excel.Quit()
 
 
 def C34(CN):
-    excel = win32.DispatchEx('Excel.Application')
-    excel.Visible = False
-    wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
-    ws = wb.Worksheets('Sheet1')
-
-    ws.Range('A12').Value = 'DE01'
-    ws.Range('B12').Value = 'Change'
-    ws.Range('C12').Value = 'Sold-to'
-    excel.Application.Run("CreatingHeader")
-
 
     ws.Range('E5').Value = CN
     ws.Range('E23').Value = "C34"
@@ -154,18 +131,9 @@ def C34(CN):
     path = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C34 licence.xlsm'
     wb.SaveAs(path)
     wb.Close(SaveChanges=False)
-    excel.Quit()
 
 def C33(CN):
-    excel = win32.DispatchEx('Excel.Application')
-    excel.Visible = False
-    wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
-    ws = wb.Worksheets('Sheet1')
 
-    ws.Range('A12').Value = 'DE01'
-    ws.Range('B12').Value = 'Change'
-    ws.Range('C12').Value = 'Sold-to'
-    excel.Application.Run("CreatingHeader")
 
     ws.Range('E5').Value = CN
     ws.Range('E23').Value = "C33"
@@ -175,8 +143,32 @@ def C33(CN):
     path = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C33 licence.xlsm'
     wb.SaveAs(path)
     wb.Close(SaveChanges=False)
-    excel.Quit()
+
 
 #######################
 
-C08('50891051','344')
+
+
+# haslo = input('jaka chcesz zalozyc licencje: ').strip().upper()
+#
+# if haslo == 'C08':
+#     CN = input("podaj numer klienta: ")
+#     BTM = input("podaj BTM: ")
+#     C08(CN,BTM)
+#
+# elif haslo == 'C06':
+#     CN = input("podaj numer klienta: ")
+#     C06(CN)
+#
+# elif haslo == 'C33':
+#     CN = input("podaj numer klienta: ")
+#     C33(CN)
+#
+# elif haslo == 'C34':
+#     CN = input("podaj numer klienta: ")
+#     C34(CN)
+#
+# else:
+#     print('podales zly numer licencji')
+# excel.Quit()
+#
