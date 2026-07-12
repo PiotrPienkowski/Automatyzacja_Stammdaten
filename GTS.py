@@ -1,6 +1,9 @@
 import win32com.client as win32
 import pandas as pd
 import os
+from openpyxl import load_workbook
+from openpyxl.styles import PatternFill
+
 
 def C08(CN,BTM):
     excel = win32.DispatchEx('Excel.Application')
@@ -15,6 +18,8 @@ def C08(CN,BTM):
     ws.Range('B12').Value = 'Change'
     ws.Range('C12').Value = 'Sold-to'
     excel.Application.Run("CreatingHeader")
+
+    excel.CalculateUntilAsyncQueriesDone()
 
     ws.Range('E5').Value = CN
     ws.Range('E23').Value = "C08"
@@ -43,10 +48,29 @@ def C08(CN,BTM):
     df['KLIENT'] = '342'
     df['NR_BTM'] = BTM
 
+
     new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx'
     df.to_excel(new_file1, index=False)
+
+    wb3 =load_workbook(new_file1)
+    ws3 = wb3.active
+
+    colour = PatternFill(fill_type='solid', fgColor='C0C0C0')
+
+    for cell in ws3[1]:
+        cell.fill = colour
+        ws3.column_dimensions[cell.column_letter].width = 20
+
+    for col in ['C', 'D', 'E', 'F']:
+        ws3.column_dimensions[col].width = 40
+
+    wb3.save(new_file1)
+    wb3.close()
+
     wb1.Close(SaveChanges=False)
     excel.Quit()
+
+
 
     outlook = win32.Dispatch('Outlook.Application')
     new_mail = outlook.CreateItem(0)
@@ -155,4 +179,4 @@ def C33(CN):
 
 #######################
 
-C34('50718370')
+C08('50891051','344')
