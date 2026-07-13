@@ -2,7 +2,7 @@ from openpyxl import load_workbook
 
 
 def C06(CN):
-    template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\CMD_template4.1.4.xlsm'
+    template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
     wb = load_workbook(template, keep_vba=True)
     ws= wb['Sheet1']
 
@@ -25,8 +25,9 @@ def C06(CN):
 
     wb.save(sciezka)
 
+
 def C33(CN):
-    template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\CMD_template4.1.4.xlsm'
+    template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
     wb = load_workbook(template,keep_vba=True)
     ws= wb['Sheet1']
 
@@ -34,8 +35,6 @@ def C33(CN):
     ws['A12'] = 'DE01'
     ws['B12'] = 'Change'
     ws['C12']= 'Sold-to'
-
-
 
     ws['E5'] = CN
     ws['E23'] =  'C33'
@@ -52,16 +51,15 @@ def C33(CN):
 
     wb.save(sciezka)
 
+
 def C34(CN):
-    template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
+    template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
     wb = load_workbook(template, keep_vba=True)
     ws= wb['Sheet1']
 
     ws['A12'] = 'DE01'
     ws['B12'] = 'Change'
     ws['C12']= 'Sold-to'
-
-
 
     ws['E5'] = CN
     ws['E23'] =  'C34'
@@ -77,33 +75,6 @@ def C34(CN):
     sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C33 licence.xlsm'
 
     wb.save(sciezka)
-
-
-def C34(CN):
-    template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\CMD_template4.1.4.xlsm'
-    wb = load_workbook(template, keep_vba=True)
-    ws= wb['Sheet1']
-
-    ws['A12'] = 'DE01'
-    ws['B12'] = 'Change'
-    ws['C12']= 'Sold-to'
-
-
-
-    ws['E5'] = CN
-    ws['E23'] =  'C34'
-    ws['E59'] = 'Yes'
-    ws['E60'] = 'C34 - Registration for Complementary Feed for Farm Animals'
-    ws['E61'] = 'NA'
-    ws['E62'] =  '30.12.9999'
-    ws['E63'] = 'L10'
-    ws['E64'] = 'NA'
-    ws['E65'] = '9,999,999'
-
-
-    sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C34 licence.xlsm'
-
-    wb.save(sciezka)
     wb.close(sciezka)
 
-C34('452')
+C34('326534')
