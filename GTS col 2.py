@@ -27,7 +27,7 @@ def licencja (CN, Licence_Type, BTM = False):
         ws.Range("E60").Value = Licence_Type[:3].upper()
 
 
-        path = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C06 licence.xlsm'
+        path = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create {Licence_Type} licence.xlsm'
         wb.SaveAs(path)
         wb.Close(SaveChanges=False)
 
