@@ -1,5 +1,10 @@
 from openpyxl import load_workbook
+import warnings
 
+warnings.filterwarnings(
+"ignore",
+message="Data Validation extension is not supported and will be removed"
+)
 
 def C06(CN):
     template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
@@ -77,4 +82,4 @@ def C34(CN):
     wb.save(sciezka)
     wb.close(sciezka)
 
-C34('326534')
+C06('2505')
