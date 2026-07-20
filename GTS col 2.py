@@ -17,24 +17,22 @@ ws = wb.Worksheets('Sheet1')
 ws.Range("A12:C12").Value = ("DE01", "Change", "Sold-to")
 excel.Application.Run("CreatingHeader")
 excel.CalculateUntilAsyncQueriesDone()
+ws.Range("E5").Value = CN
+ws.Range("E23").Value = Licence_Type
+ws.Range("E59").Value = "Yes"
 
 def licencja (CN, Licence_Type, BTM = False):
 
     if Licence_Type.strip().upper() in ['C06', 'C33', 'C34']:
-        ws.Range("E5").Value = CN
-        ws.Range("E23").Value = Licence_Type
-        ws.Range("E59").Value = "Yes"
+
         ws.Range("E60").Value = Licence_Type[:3].upper()
-
-
         path = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create {Licence_Type} licence.xlsm'
         wb.SaveAs(path)
         wb.Close(SaveChanges=False)
 
     elif Licence_Type.strip().upper()  == 'C08':
-        ws.Range("E5").Value = CN
-        ws.Range("E23").Value = Licence_Type
-        ws.Range("E59").Value = "Yes"
+
+
         ws.Range("E60").Value = Licence_Type[:3].upper()
         ws.Range("E61").Value = BTM
         new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence.xlsm'
@@ -117,6 +115,5 @@ def licencja (CN, Licence_Type, BTM = False):
 
 licencja(CN, Licence_Type, BTM)
 excel.Quit()
-
 
 

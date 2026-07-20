@@ -31,6 +31,7 @@ def C06(CN):
     wb.save(sciezka)
 
 
+
 def C33(CN):
     template = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
     wb = load_workbook(template,keep_vba=True)
@@ -69,17 +70,17 @@ def C34(CN):
     ws['E5'] = CN
     ws['E23'] =  'C34'
     ws['E59'] = 'Yes'
-    ws['E60'] = 'C33 - Vet Samples'
+    ws['E60'] = 'C34 - Registration for Complementary Feed for Farm Animals'
     ws['E61'] = 'NA'
     ws['E62'] =  '30.12.9999'
-    ws['E63'] = 'NA'
-    ws['E64'] = 'CA5536030GQZ1, CA5537030GQZ1, CA5538030GQZ1, CA5539030GQZ1'
-    ws['E65'] = '2'
+    ws['E63'] = 'L10'
+    ws['E64'] = 'NA'
+    ws['E65'] = '9,999,999'
 
 
-    sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C33 licence.xlsm'
+    sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C34 licence.xlsm'
 
     wb.save(sciezka)
-    wb.close(sciezka)
 
-C06('2505')
+
+C34('test')
