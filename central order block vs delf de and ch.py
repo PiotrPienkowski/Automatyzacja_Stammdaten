@@ -76,7 +76,7 @@ excel.Quit()
 outlook = win32.Dispatch("Outlook.Application")
 mail = outlook.CreateItem(0)
 mail.Display()
-mail.To = "piotr.pienkowski@elancoah.com"
+mail.To = "kundenbetreuung@elancoah.com","sebastian.lichota@elancoah.com","malgorzata.janaszewska@elancoah.com","monika.saroma@elancoah.com","pawel.nawrot@elancoah.com","dolzodmaa.yadamtsoo@elancoah.com","malgorzata.trznadel@elancoah.com","debitorenbuchhaltung@elancoah.com","credit_warsaw@elancoah.com"
 mail.subject = rf"Central Order Block vs delf de and ch  {today}"
 mail.body = mail.body = (f"Hello All, \n\n"
                          f"Please find central order block for DE and CH {today}. \n\n"
