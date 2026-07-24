@@ -23,7 +23,7 @@ for i in os.listdir(sciezka):
 
 # otwiera plik znajdujacy sie na sharepoincie i majacy dostep do modelu semantycznego DE
 excel = win32.Dispatch("Excel.Application")
-excel.Visible = False
+excel.Visible = True
 wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\source file\semantic_model_de.xlsx')
 
 # klika przycisk refresh all
@@ -48,29 +48,29 @@ df = df.iloc[:, 1:]
 
 df.to_excel(rf"C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\DE {today}.xlsx", index=False)
 wb.Close(SaveChanges=False)  # mowi ze nie zapisuje zmiany w zmiennej wb
-excel.Quit()
+
 
 ## 4.zaczynamy w plikiem ch
 
-excel = win32.Dispatch("Excel.Application")
-excel.Visible = False
-wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\source file\semantic model ch.xlsx')
+# excel = win32.Dispatch("Excel.Application")
+# excel.Visible = False
+wb1 = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\source file\semantic model ch.xlsx')
 
-wb.RefreshAll()
+wb1.RefreshAll()
 excel.CalculateUntilAsyncQueriesDone()
 
-ws = wb.Worksheets('centralorderblockvsdelfch')
+ws1 = wb1.Worksheets('centralorderblockvsdelfch')
 
-data = ws.UsedRange.Value
-df = pd.DataFrame(data)
-df = df[df[0] == 'yes']
+data1 = ws1.UsedRange.Value
+df1 = pd.DataFrame(data1)
+df1 = df1[df1[0] == 'yes']
 
-df['Customer Service'] = ""
-df['Cash App'] = ""
-df['Credit Team'] = ""
-df = df.iloc[:, 1:]
-df.to_excel(rf"C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\CH {today}.xlsx", index=False)
-wb.Close(SaveChanges=False)
+df1['Customer Service'] = ""
+df1['Cash App'] = ""
+df1['Credit Team'] = ""
+df1 = df1.iloc[:, 1:]
+df1.to_excel(rf"C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\CH {today}.xlsx", index=False)
+wb1.Close(SaveChanges=False)
 excel.Quit()
 
 outlook = win32.Dispatch("Outlook.Application")

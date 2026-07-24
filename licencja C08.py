@@ -6,8 +6,9 @@ from openpyxl.styles import PatternFill
 
 
 def C08(CN, BTM):
-    excel = win32.DispatchEx('Excel.Application')
-    excel.Visible = False
+
+    excel = win32.Dispatch('Excel.Application')
+    excel.Visible = True
     wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
     ws = wb.Worksheets('Sheet1')
     ws.Range('A12').Value = 'DE01'
@@ -25,11 +26,15 @@ def C08(CN, BTM):
     ws.Range('E61').Value = BTM
 
     new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence.xlsm'
+    wb.CheckCompatibility = False
     wb.SaveAs(new_file)
     wb.Close(SaveChanges=False)
 
+
     wb1 = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\BTM Template.xlsx')
     ws1 = wb1.Worksheets(1)
+
+
     wb1.RefreshAll()
     excel.CalculateUntilAsyncQueriesDone()
     data1 = ws1.UsedRange.Value
@@ -61,8 +66,9 @@ def C08(CN, BTM):
 
     wb3.save(new_file1)
     wb3.close()
-
     wb1.Close(SaveChanges=False)
+    excel.Quit()
+
 
     outlook = win32.Dispatch('Outlook.Application')
     new_mail = outlook.CreateItem(0)
@@ -102,4 +108,4 @@ def C08(CN, BTM):
 
     new_mail.Display()
 
-C08('1 ','1')
+C08('50009284','4596679')
