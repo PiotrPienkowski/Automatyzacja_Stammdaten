@@ -42,11 +42,6 @@ class DE:
         self.browser = self.pw.chromium.launch(channel="chrome",headless=False)
         self.page = self.browser.new_page()
         self.page.goto(snow)
-        # self.page.get_by_role("textbox").fill("piotr.pienkowski@elanco.com")
-        # self.page.get_by_role("button", name="Next").click()
-        # self.page.get_by_role("textbox", name="Password").fill("841002")
-        # self.page.get_by_role("button", name="Sign in").click()
-
         self.page.wait_for_load_state("networkidle")
         self.page.locator("#s2id_sp_formfield_sales_organization a").click()
         self.page.get_by_role("option", name="DE01").click()

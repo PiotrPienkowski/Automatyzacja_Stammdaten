@@ -28,7 +28,8 @@ def C06(CN):
 
     sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C06 licence.xlsm'
 
-    wb.save(sciezka)
+
+
 
 
 

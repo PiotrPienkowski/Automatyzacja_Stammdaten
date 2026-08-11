@@ -1,9 +1,13 @@
 import win32com.client as win32
 import pandas as pd
-import os
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
+from playwright.sync_api import sync_playwright
+import os
+import time
 
+link_do_snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
+os.system("taskkill /F /IM excel.exe")
 
 def C08(CN, BTM):
 
@@ -107,5 +111,25 @@ def C08(CN, BTM):
             new_mail.Attachments.Add(os.path.join(path, file))
 
     new_mail.Display()
+
+    start = sync_playwright().start()
+    browser = start.chromium.launch(channel= "chromium", headless= False)
+    page = browser.new_page()
+    snow = page.goto(link_do_snow)
+    page.wait_for_load_state("networkidle")
+    page.locator("#s2id_sp_formfield_sales_organization a").click()
+    page.get_by_role("option", name="DE01").click()
+    page.locator("#s2id_sp_formfield_type_of_request a").click()
+    page.get_by_role("option", name="Change").click()
+    page.get_by_role("textbox", name="Customer Number").fill(CN)
+    page.locator("#s2id_sp_formfield_request_priority a").click()
+    page.get_by_role("option", name="Critical - 4 hours").click()
+    page.locator("#s2id_sp_formfield_distribution_channel a").click()
+    page.get_by_role("option", name="10-Domestic").click()
+    page.locator("#s2id_sp_formfield_multiple_requests a").click()
+    page.get_by_role("option", name="No", exact=True).click()
+    page.locator("#s2id_sp_formfield_account_group a").click()
+    page.get_by_role("option", name="Sold-to").click()
+    time.sleep(999999)
 
 C08('50752018','4427089')
