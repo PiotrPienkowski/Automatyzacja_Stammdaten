@@ -6,3 +6,14 @@ with sync_playwright() as p:
     page = browser.new_page()
     page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
     page.pause()
+
+
+# import os
+#
+# prath = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
+#
+# for i in os.listdir(prath):
+#     if os.path.join(prath,i).endswith('.pdf'):
+#         print(i)
+#     else:
+#         print("png")

@@ -5,13 +5,11 @@ from openpyxl.styles import PatternFill
 from playwright.sync_api import sync_playwright
 import os
 import time
+import mimetypes
 
-from selenium.webdriver.support.expected_conditions import element_selection_state_to_be
-
+path = r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
 link_do_snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
 
-#>null ukryj standardowe komunikaty
-#2>&1 ukryj komunikaty bledow
 
 result = os.system("taskkill /F /IM excel.exe 1>nul 2>nul") ## >nul (czarna dziura nic nie wyswietla) - przekierowuje standardowe komunikaty do "kosza" (1),przekierowuje komunikaty błędów do kosza 2)
 if result != 0:  #0 to jest polecenie wykonane poprawnie tzn. procesy zamkniete <>0 blad systemwy ale nie blad obslugiwany przez sxcept
@@ -107,7 +105,7 @@ def C08(CN, BTM):
                      f"and your rights and choices with respect to your Personal Data, go to "
                      f"privacy.elanco.com"
                      )
-    path = r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
+
     new_mail.Attachments.Add(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx')
 
     for file in os.listdir(path):
@@ -134,6 +132,26 @@ def C08(CN, BTM):
     page.get_by_role("option", name="No", exact=True).click()
     page.locator("#s2id_sp_formfield_account_group a").click()
     page.get_by_role("option", name="Sold-to").click()
+    page.get_by_role("button", name = "Upload Attachment for VET").click()
+    page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Pelase create C08 licence (See attached)')
+
+    with page.expect_file_chooser() as fc:
+        page.get_by_role(
+            "button",
+            name = "Upload Attachment for CMD").click()
+    fc.value.set_files(new_file)
+
+
+
+    # with page.expect_file_chooser()as cf1:
+    #     page.get_by_role("button", name="Upload Attachment for CMD").click()
+    #
+    # for i in os.listdir(path):
+    #
+    #     if os.path.join(path, i).endswith('.pdf'):
+    #         cf1.value.set_files(os.path.join(path, i))
+    #         break
+
     time.sleep(999999)
 
 C08('50022351','4539457')
