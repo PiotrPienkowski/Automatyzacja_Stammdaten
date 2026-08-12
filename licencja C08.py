@@ -6,8 +6,16 @@ from playwright.sync_api import sync_playwright
 import os
 import time
 
+from selenium.webdriver.support.expected_conditions import element_selection_state_to_be
+
 link_do_snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
-os.system("taskkill /F /IM excel.exe")
+
+#>null ukryj standardowe komunikaty
+#2>&1 ukryj komunikaty bledow
+
+result = os.system("taskkill /F /IM excel.exe 1>nul 2>nul") ## >nul (czarna dziura nic nie wyswietla) - przekierowuje standardowe komunikaty do "kosza" (1),przekierowuje komunikaty błędów do kosza 2)
+if result != 0:  #0 to jest polecenie wykonane poprawnie tzn. procesy zamkniete <>0 blad systemwy ale nie blad obslugiwany przez sxcept
+    print("Nie znaleziono otwartego Excela")
 
 def C08(CN, BTM):
 
@@ -19,9 +27,7 @@ def C08(CN, BTM):
     ws.Range('B12').Value = 'Change'
     ws.Range('C12').Value = 'Sold-to'
     excel.Application.Run("CreatingHeader")
-
     excel.CalculateUntilAsyncQueriesDone()
-    # runowanie makra vba
 
     ws.Range('E5').Value = CN
     ws.Range('E23').Value = "C08"
@@ -34,10 +40,8 @@ def C08(CN, BTM):
     wb.SaveAs(new_file)
     wb.Close(SaveChanges=False)
 
-
     wb1 = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\BTM Template.xlsx')
     ws1 = wb1.Worksheets(1)
-
 
     wb1.RefreshAll()
     excel.CalculateUntilAsyncQueriesDone()
@@ -115,7 +119,7 @@ def C08(CN, BTM):
     start = sync_playwright().start()
     browser = start.chromium.launch(channel= "chromium", headless= False)
     page = browser.new_page()
-    snow = page.goto(link_do_snow)
+    page.goto(link_do_snow)
     page.wait_for_load_state("networkidle")
     page.locator("#s2id_sp_formfield_sales_organization a").click()
     page.get_by_role("option", name="DE01").click()
@@ -132,4 +136,4 @@ def C08(CN, BTM):
     page.get_by_role("option", name="Sold-to").click()
     time.sleep(999999)
 
-C08('50752018','4427089')
+C08('50022351','4539457')

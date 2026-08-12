@@ -37,7 +37,7 @@ class DE:
 
 
 
-    def przegladarka(self):
+    def przegladarka_block_unblock(self):
         self.pw = sync_playwright().start()
         self.browser = self.pw.chromium.launch(channel="chrome",headless=False)
         self.page = self.browser.new_page()
@@ -64,18 +64,18 @@ class DE:
         self.ws.Range('E13').Value = 'Set'
         self.ws.Range('E14').Value = '01 - Overall block'
         self.zapisywanie()
-        self.przegladarka()
+        self.przegladarka_block_unblock()
 
     def remove_central_order_block(self):
         self.ws.Range('E13').Value = 'Reset (Remove)'
         self.ws.Range('E14').Value = '01 - Overall block'
         self.zapisywanie()
-        self.przegladarka()
+        self.przegladarka_block_unblock()
 
     def remove_deletion_flag(self):
         self.ws.Range('E12').Value = 'Reset (Remove)'
         self.zapisywanie()
-        self.przegladarka()
+        self.przegladarka_block_unblock()
 
     def remove_central_order_and_deletio_flag(self):
         self.ws.Range('E12').Value = 'Reset (Remove)'
@@ -89,7 +89,7 @@ class CH(DE):
         self.ws.Range('C12').Value = 'Sold-to'
         self.ws.Range('E5').Value = CN
 
-    def przegladarka(self):
+    def przegladarka_block_unblock(self):
         self.pw = sync_playwright().start()
         self.browser = self.pw.chromium.launch(channel="chrome",headless=False)
         self.page = self.browser.new_page()
@@ -110,5 +110,5 @@ class CH(DE):
         self.page.locator('#cmd_form_attached input[type="file"]').set_input_files(rf"{new_file}\{self.CN}.xlsm")
         time.sleep(300)
 
-CH('CH5').remove_deletion_flag()
+DE('CH5').remove_deletion_flag()
 

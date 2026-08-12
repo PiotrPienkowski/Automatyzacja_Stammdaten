@@ -25,12 +25,7 @@ def C06(CN):
     ws['E64'] = 'NA'
     ws['E65'] = '9,999,999'
 
-
     sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C06 licence.xlsm'
-
-
-
-
 
 
 def C33(CN):
@@ -48,7 +43,7 @@ def C33(CN):
     ws['E59'] = 'Yes'
     ws['E60'] = 'C33 - Vet Samples'
     ws['E61'] = 'NA'
-    ws['E62'] =  '30.12.9999'
+    ws['E62'] = '30.12.2026'
     ws['E63'] = 'NA'
     ws['E64'] = 'CA5536030GQZ1, CA5537030GQZ1, CA5538030GQZ1, CA5539030GQZ1'
     ws['E65'] = '2'
@@ -78,10 +73,9 @@ def C34(CN):
     ws['E64'] = 'NA'
     ws['E65'] = '9,999,999'
 
-
     sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN} create C34 licence.xlsm'
 
     wb.save(sciezka)
 
 
-C34('50614337')
+C34('123')
