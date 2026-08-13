@@ -1,14 +1,16 @@
 from openpyxl import load_workbook
 import warnings
-from prompt_toolkit.key_binding.bindings.named_commands import self_insert
 import os
+from playwright.sync_api import sync_playwright
+import time
 
 warnings.filterwarnings(
 "ignore",
 message="Data Validation extension is not supported and will be removed"
 )
-
 os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
+
+snow = rf'https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0'
 path = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
 
 class licencja:
@@ -22,8 +24,30 @@ class licencja:
         self.ws['C12'] = 'Sold-to'
         self.ws['E5'] = CN
 
-    def C33(self):
 
+    def snow_ticket(self):
+        self.pw = sync_playwright().start()
+        self.browser = self.pw.chromium.launch(channel= "chromium", headless= False)
+        self.tab = self.browser.new_page()
+        self.tab.goto(snow)
+        self.tab.locator("#s2id_sp_formfield_sales_organization a").click()
+        self.tab.get_by_role("option", name="DE01").click()
+        self.tab.locator("#s2id_sp_formfield_type_of_request a").click()
+        self.tab.get_by_role("option", name="Change").click()
+        self.tab.get_by_role("textbox", name="Customer Number").fill(self.CN)
+        self.tab.locator("#s2id_sp_formfield_request_priority a").click()
+        self.tab.get_by_role("option", name="Critical - 4 hours").click()
+        self.tab.locator("#s2id_sp_formfield_distribution_channel a").click()
+        self.tab.get_by_role("option", name="10-Domestic").click()
+        self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
+        self.tab.get_by_role("option", name="No", exact= True).click()
+        self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
+        self.tab.locator("#s2id_sp_formfield_account_group a").click()
+        self.tab.get_by_role("option", name="Sold-to").click()
+        self.tab.get_by_role("textbox", name="Additional information").fill(r'Hello Team, please create licence (see attaced)')
+
+
+    def C33(self):
         self.ws['E23'] =  'C33'
         self.ws['E59'] = 'Yes'
         self.ws['E60'] = 'C33 - Vet Samples'
@@ -34,9 +58,10 @@ class licencja:
         self.ws['E65'] = '2'
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create C33 licence.xlsm'
         self.wb.save(self.sciezka)
+        self.snow_ticket()
+        time.sleep(300)
 
     def C06(self):
-
         self.ws['E23'] =  'C06'
         self.ws['E59'] = 'Yes'
         self.ws['E60'] = 'C06 - Veterinary'
@@ -47,9 +72,10 @@ class licencja:
         self.ws['E65'] = '9,999,999'
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} ceate C06 licence.xlsm'
         self.wb.save(self.sciezka)
+        self.snow_ticket()
+        time.sleep(300)
 
     def C34(self):
-
         self.ws['E23'] =  'C34'
         self.ws['E59'] = 'Yes'
         self.ws['E60'] = 'C34 - Registration for Complementary Feed for Farm Animals'
@@ -60,6 +86,8 @@ class licencja:
         self.ws['E65'] = '9,999,999'
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create C34 licence.xlsm'
         self.wb.save(self.sciezka)
+        self.snow_ticket()
+        time.sleep(300)
 
 
-licencja("123").C33()
+licencja("112").C33()
