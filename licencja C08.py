@@ -141,8 +141,6 @@ def C08(CN, BTM):
             name = "Upload Attachment for CMD").click()
     fc.value.set_files(new_file)
 
-
-
     # with page.expect_file_chooser()as cf1:
     #     page.get_by_role("button", name="Upload Attachment for CMD").click()
     #
