@@ -6,8 +6,10 @@
 #     page = browser.new_page()
 #     page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
 #     page.pause()
+#
+from os import path
 
-
+import pandas as pd
 # import os
 #
 # prath = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
@@ -18,13 +20,30 @@
 #     else:
 #         print("png")
 
-import xlsxwriter as xl
+# import xlsxwriter as xl
+# import pandas as pd
+#
+# path = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog 50022351.xlsx'
+#
+# df = pd.read_excel(path,sheet_name='Sheet1')
+# numer= df[df["Kundennummer"] == 50022351]
+# print(numer)
+#
+
+import win32com.client as win32com
+import os
+import time
 import pandas as pd
 
-path = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog 50022351.xlsx'
+os.system('taskkill /f /im excel.exe')
 
-df = pd.read_excel(path,sheet_name='Sheet1')
-numer= df[df["Kundennummer"] == 50022351]
-print(numer)
+tracker = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\GTS Bestellungen (3).xlsx'
 
-
+excel = win32com.Dispatch("Excel.Application")
+excel.visible= True
+wb_tracker = excel.Workbooks.Open(tracker)
+ws_tracker = wb_tracker.Sheets("Piotr- technical tab 2")
+table = ws_tracker.ListObjects("Tabela3")
+table.AutoFilter.ShowAllData()
+table.Range.AutoFilter(Field= 9, Criteria1 = "50000779")
+time.sleep(300)

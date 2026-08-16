@@ -5,11 +5,10 @@ from openpyxl.styles import PatternFill
 from playwright.sync_api import sync_playwright
 import os
 import time
-import mimetypes
 
 path = r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
 link_do_snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
-
+tracker = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\GTS Bestellungen (3).xlsx'
 
 result = os.system("taskkill /F /IM excel.exe 1>nul 2>nul") ## >nul (czarna dziura nic nie wyswietla) - przekierowuje standardowe komunikaty do "kosza" (1),przekierowuje komunikaty błędów do kosza 2)
 if result != 0:  #0 to jest polecenie wykonane poprawnie tzn. procesy zamkniete <>0 blad systemwy ale nie blad obslugiwany przez sxcept
@@ -73,7 +72,12 @@ def C08(CN, BTM):
     wb3.save(new_file1)
     wb3.close()
     wb1.Close(SaveChanges=False)
-    excel.Quit()
+
+    wb_tracker = excel.Workbooks.Open(tracker)
+    ws_tracker = wb_tracker.Sheets("Piotr- technical tab 2")
+    table = ws_tracker.ListObjects("Tabela3")
+    table.AutoFilter.ShowAllData()
+    table.Range.AutoFilter(Field=9, Criteria1= CN)
 
 
     outlook = win32.Dispatch('Outlook.Application')
@@ -150,6 +154,6 @@ def C08(CN, BTM):
     #         cf1.value.set_files(os.path.join(path, i))
     #         break
 
-    time.sleep(999999)
+    time.sleep(300)
 
-C08('50022351','4539457')
+C08('50012234','4539457')
