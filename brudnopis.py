@@ -1,12 +1,12 @@
-#
-# from playwright.sync_api import sync_playwright
-#
-# with sync_playwright() as p:
-#     browser = p.chromium.launch(headless=False)
-#     page = browser.new_page()
-#     page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
-#     page.pause()
-#
+
+from playwright.sync_api import sync_playwright
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.new_page()
+    page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
+    page.pause()
+
 from os import path
 
 import pandas as pd
@@ -30,20 +30,20 @@ import pandas as pd
 # print(numer)
 #
 
-import win32com.client as win32com
-import os
-import time
-import pandas as pd
-
-os.system('taskkill /f /im excel.exe')
-
-tracker = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\GTS Bestellungen (3).xlsx'
-
-excel = win32com.Dispatch("Excel.Application")
-excel.visible= True
-wb_tracker = excel.Workbooks.Open(tracker)
-ws_tracker = wb_tracker.Sheets("Piotr- technical tab 2")
-table = ws_tracker.ListObjects("Tabela3")
-table.AutoFilter.ShowAllData()
-table.Range.AutoFilter(Field= 9, Criteria1 = "50000779")
-time.sleep(300)
+# import win32com.client as win32com
+# import os
+# import time
+# import pandas as pd
+#
+# os.system('taskkill /f /im excel.exe')
+#
+# tracker = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\GTS Bestellungen (3).xlsx'
+#
+# excel = win32com.Dispatch("Excel.Application")
+# excel.visible= True
+# wb_tracker = excel.Workbooks.Open(tracker)
+# ws_tracker = wb_tracker.Sheets("Piotr- technical tab 2")
+# table = ws_tracker.ListObjects("Tabela3")
+# table.AutoFilter.ShowAllData()
+# table.Range.AutoFilter(Field= 9, Criteria1 = "50000779")
+# time.sleep(300)

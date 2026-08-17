@@ -73,11 +73,11 @@ def C08(CN, BTM):
     wb3.close()
     wb1.Close(SaveChanges=False)
 
-    wb_tracker = excel.Workbooks.Open(tracker)
-    ws_tracker = wb_tracker.Sheets("Piotr- technical tab 2")
-    table = ws_tracker.ListObjects("Tabela3")
-    table.AutoFilter.ShowAllData()
-    table.Range.AutoFilter(Field=9, Criteria1= CN)
+    # wb_tracker = excel.Workbooks.Open(tracker)
+    # ws_tracker = wb_tracker.Sheets("Piotr- technical tab 2")
+    # table = ws_tracker.ListObjects("Tabela3")
+    # table.AutoFilter.ShowAllData()
+    # table.Range.AutoFilter(Field=9, Criteria1= CN)
 
 
     outlook = win32.Dispatch('Outlook.Application')
@@ -137,7 +137,7 @@ def C08(CN, BTM):
     page.locator("#s2id_sp_formfield_account_group a").click()
     page.get_by_role("option", name="Sold-to").click()
     page.get_by_role("button", name = "Upload Attachment for VET").click()
-    page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Pelase create C08 licence (See attached)')
+    page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
 
     with page.expect_file_chooser() as fc:
         page.get_by_role(
@@ -145,15 +145,14 @@ def C08(CN, BTM):
             name = "Upload Attachment for CMD").click()
     fc.value.set_files(new_file)
 
-    # with page.expect_file_chooser()as cf1:
-    #     page.get_by_role("button", name="Upload Attachment for CMD").click()
-    #
-    # for i in os.listdir(path):
-    #
-    #     if os.path.join(path, i).endswith('.pdf'):
-    #         cf1.value.set_files(os.path.join(path, i))
-    #         break
+    with page.expect_file_chooser()as cf1:
+        page.get_by_role("button", name="Upload Attachment for VET").click()
 
-    time.sleep(300)
+    for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+        if os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i).endswith('.pdf'):
+            cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
+            break
+
+    time.sleep(99999)
 
 C08('50012234','4539457')

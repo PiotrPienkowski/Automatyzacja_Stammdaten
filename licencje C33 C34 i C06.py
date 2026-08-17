@@ -49,6 +49,13 @@ class licencja:
             self.tab.get_by_role("button", name = "Upload Attachment for CMD").click()
         file_chooser = fc.value
         file_chooser.set_files(self.sciezka)
+        with self.tab.expect_file_chooser() as fca:
+            self.tab.get_by_role("button", name = "Upload Attachment for VET").click()
+        for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+            if i.endswith('.pdf'):
+                license_chooser = fca.value
+                license_chooser.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\', i))
+                break
 
     def C33(self):
         self.ws['E23'] =  'C33'
@@ -93,4 +100,4 @@ class licencja:
         time.sleep(9999999)
 
 
-licencja("123").C33()
+licencja("123").C34()
