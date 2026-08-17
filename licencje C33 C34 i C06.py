@@ -44,14 +44,11 @@ class licencja:
         self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
         self.tab.locator("#s2id_sp_formfield_account_group a").click()
         self.tab.get_by_role("option", name="Sold-to").click()
-        self.page.get_by_role("textbox", name="Additional information").fill(
-            f'Hello Team, Pelase create C08 licence (See attached)')
+        self.tab.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
         with self.tab.expect_file_chooser() as fc:
             self.tab.get_by_role("button", name = "Upload Attachment for CMD").click()
         file_chooser = fc.value
         file_chooser.set_files(self.sciezka)
-
-
 
     def C33(self):
         self.ws['E23'] =  'C33'
@@ -93,7 +90,7 @@ class licencja:
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
         self.wb.save(self.sciezka)
         self.snow_ticket()
-        time.sleep(300)
+        time.sleep(9999999)
 
 
-licencja("432").C06()
+licencja("123").C33()
