@@ -1,13 +1,14 @@
 
-from playwright.sync_api import sync_playwright
-
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
-    page = browser.new_page()
-    page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
-    page.pause()
-
-from os import path
+# from playwright.sync_api import sync_playwright
+# import time
+# #
+# # with sync_playwright() as p:
+# #     browser = p.chromium.launch(headless=False)
+# #     page = browser.new_page()
+# #     page.goto("https://login.veevanetwork.com/auth/login?retURL=https%3A%2F%2Felanco.veevanetwork.com/ui/")
+# #     page.pause()
+# #
+# from os import path
 
 import pandas as pd
 # import os
@@ -47,3 +48,23 @@ import pandas as pd
 # table.AutoFilter.ShowAllData()
 # table.Range.AutoFilter(Field= 9, Criteria1 = "50000779")
 # time.sleep(300)
+
+# veeva = r"https://login.veevanetwork.com/auth/login?retURL=https%3A%2F%2Felanco.veevanetwork.com/ui/"
+#
+# playwright = sync_playwright().start()
+# browser = playwright.chromium.launch(channel= "chromium", headless= False)
+# page = browser.new_page()
+# page.goto(veeva)
+# page.get_by_role("button", name="Log in with Microsoft").click()
+# time.sleep(300)
+
+
+import win32com.client
+
+outlook = win32com.client.Dispatch("Outlook.Application")
+mail = outlook.CreateItem(0)
+mail.To = "test@test.com"
+mail.Subject = "Test"
+mail.Body = "Test"
+
+mail.Display()

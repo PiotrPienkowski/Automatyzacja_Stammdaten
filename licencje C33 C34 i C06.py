@@ -1,4 +1,3 @@
-from IPython.core import page
 from openpyxl import load_workbook
 import warnings
 import os
@@ -14,6 +13,7 @@ os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
 link_do_snow = rf'https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0'
 path = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
 
+
 class licencja:
 
     def __init__(self,CN):
@@ -24,6 +24,7 @@ class licencja:
         self.ws['B12'] = 'Change'
         self.ws['C12'] = 'Sold-to'
         self.ws['E5'] = CN
+
 
     def snow_ticket(self):
         self.pw = sync_playwright().start()
@@ -52,7 +53,7 @@ class licencja:
         with self.tab.expect_file_chooser() as fca:
             self.tab.get_by_role("button", name = "Upload Attachment for VET").click()
         for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
-            if i.endswith('.pdf'):
+            if i.endswith(('.pdf', '.jpg')):
                 license_chooser = fca.value
                 license_chooser.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\', i))
                 break
@@ -100,4 +101,4 @@ class licencja:
         time.sleep(9999999)
 
 
-licencja("123").C34()
+licencja("50018733").C33()

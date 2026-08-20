@@ -149,10 +149,10 @@ def C08(CN, BTM):
         page.get_by_role("button", name="Upload Attachment for VET").click()
 
     for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
-        if os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i).endswith('.pdf'):
+        if os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i).endswith(('.pdf','.jpg' )):
             cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
             break
 
     time.sleep(99999)
 
-C08('50012234','4539457')
+C08('50884388','4667675')
