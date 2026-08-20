@@ -13,6 +13,7 @@ os.system("taskkill /F /IM excel.exe >nul 2>nul")
 class snow_ticket:
 
     def __init__(self):
+
         self.pw = sync_playwright().start()
         self.browser = self.pw.chromium.launch(channel="chrome",headless=False)
         self.page = self.browser.new_page()
@@ -109,6 +110,11 @@ class ch(de):
     def __init__(self, CN):
         super().__init__(CN)
         self.ws.Range('A12').Value = 'CH01'
+        self.ws.Range('B12').Value = 'Block/Unblock/Deletion Flag'
+        self.ws.Range('C12').Value = 'Sold-to'
+        self.excel.Application.Run("CreatingHeader")
+        self.excel.CalculateUntilAsyncQueriesDone()
+        self.ws.Range('E5').Value = CN
 
     def set_central_order_block(self):
         self.ws.Range('E13').Value = 'Set'
@@ -138,11 +144,13 @@ class ch(de):
         self.snow_ch("Deletion Flag")
         time.sleep(300)
 
-de("127").set_central_order_block()
+ch("50517958 ").set_central_order_block()
+
+
 
 
 #  klasy de i ch
-# set_central_order_block  - de ok ( wproswadzic tylko opis)
+# set_central_order_block  - d
 # remove_central_order_block
 # remove_deletion_flag
 # remove_central_order_and_deletion_flag

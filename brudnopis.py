@@ -1,13 +1,26 @@
+#
+# from playwright.sync_api import sync_playwright
+# import time
+#
+# with sync_playwright() as p:
+#     browser = p.chromium.launch(headless=False)
+#     page = browser.new_page()
+#     page.goto("https://login.veevanetwork.com/auth/login?retURL=https%3A%2F%2Felanco.veevanetwork.com/ui/")
+#     page.pause()
+
+
 
 # from playwright.sync_api import sync_playwright
 # import time
-# #
-# # with sync_playwright() as p:
-# #     browser = p.chromium.launch(headless=False)
-# #     page = browser.new_page()
-# #     page.goto("https://login.veevanetwork.com/auth/login?retURL=https%3A%2F%2Felanco.veevanetwork.com/ui/")
-# #     page.pause()
-# #
+#
+# playwright = sync_playwright().start()
+# browser = playwright.chromium.launch(headless=False)
+# page = browser.new_page()
+# page.goto("https://login.veevanetwork.com/auth/login?retURL=https%3A%2F%2Felanco.veevanetwork.com/ui/")
+# page.wait_for_load_state("networkidle")
+# page.get_by_text("Log in with").click()
+# time.sleep(300)
+
 # from os import path
 
 import pandas as pd
@@ -59,12 +72,50 @@ import pandas as pd
 # time.sleep(300)
 
 
-import win32com.client
+# from playwright.sync_api import sync_playwright
+#
+# playwright = sync_playwright().start()
+# browser = playwright.chromium.launch(headless=False)
+# tab = browser.new_page()
+# tab.goto("https://login.veevanetwork.com/auth/login?retURL=https%3A%2F%2Felanco.veevanetwork.com/ui/")
+# tab.get_by_role("button", name = "Log in with").click()
 
-outlook = win32com.client.Dispatch("Outlook.Application")
-mail = outlook.CreateItem(0)
-mail.To = "test@test.com"
-mail.Subject = "Test"
-mail.Body = "Test"
 
-mail.Display()
+# from playwright.sync_api import sync_playwright
+# import time
+#
+#
+# playwright = sync_playwright().start()
+# browser = playwright.chromium.launch(headless=False)
+# page = browser.new_page()
+# page.goto("https://elancoconnect.lightning.force.com/lightning/page/home")
+# time.sleep(300)
+
+
+from openpyxl import load_workbook
+import time
+import os
+
+os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
+
+formatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
+nowy_plik = r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\test.xlsm'
+
+def funkcja(CN):
+
+    excel = load_workbook(formatka, keep_vba=True)
+    ws = excel.worksheets[0]
+    ws['A12'] = 'CH01'
+    ws['B12'] = 'Block/Unblock/Deletion Flag'
+    ws['C12'] = 'Sold-to'
+    ws['E5'] = CN
+    ws['E23']= "test"
+
+    excel.save(nowy_plik)
+    excel.close()
+
+funkcja('moninski')
+
+
+
+

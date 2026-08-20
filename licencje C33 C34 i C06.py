@@ -101,4 +101,4 @@ class licencja:
         time.sleep(9999999)
 
 
-licencja("50018733").C33()
+licencja("50020302").C33()
