@@ -1,12 +1,12 @@
-#
-# from playwright.sync_api import sync_playwright
-# import time
-#
-# with sync_playwright() as p:
-#     browser = p.chromium.launch(headless=False)
-#     page = browser.new_page()
-#     page.goto("https://login.veevanetwork.com/auth/login?retURL=https%3A%2F%2Felanco.veevanetwork.com/ui/")
-#     page.pause()
+
+from playwright.sync_api import sync_playwright
+import time
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.new_page()
+    page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
+    page.pause()
 
 
 
@@ -96,26 +96,26 @@ from openpyxl import load_workbook
 import time
 import os
 
-os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
-
-formatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
-nowy_plik = r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\test.xlsm'
-
-def funkcja(CN):
-
-    excel = load_workbook(formatka, keep_vba=True)
-    ws = excel.worksheets[0]
-    ws['A12'] = 'CH01'
-    ws['B12'] = 'Block/Unblock/Deletion Flag'
-    ws['C12'] = 'Sold-to'
-    ws['E5'] = CN
-    ws['E23']= "test"
-
-    excel.save(nowy_plik)
-    excel.close()
-
-funkcja('moninski')
-
-
-
+# os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
+#
+# formatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
+# nowy_plik = r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\test.xlsm'
+#
+# def funkcja(CN):
+#
+#     excel = load_workbook(formatka, keep_vba=True)
+#     ws = excel.worksheets[0]
+#     ws['A12'] = 'CH01'
+#     ws['B12'] = 'Block/Unblock/Deletion Flag'
+#     ws['C12'] = 'Sold-to'
+#     ws['E5'] = CN
+#     ws['E23']= "test"
+#
+#     excel.save(nowy_plik)
+#     excel.close()
+#
+# funkcja('moninski')
+#
+#
+#
 
