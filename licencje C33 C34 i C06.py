@@ -45,7 +45,7 @@ class licencja:
         self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
         self.tab.locator("#s2id_sp_formfield_account_group a").click()
         self.tab.get_by_role("option", name="Sold-to").click()
-        self.tab.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
+        self.tab.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create licence (See attached)')
         with self.tab.expect_file_chooser() as fc:
             self.tab.get_by_role("button", name = "Upload Attachment for CMD").click()
         file_chooser = fc.value
@@ -101,4 +101,4 @@ class licencja:
         time.sleep(9999999)
 
 
-licencja("50020302").C33()
+licencja("50008778").C33()

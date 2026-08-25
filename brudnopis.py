@@ -1,13 +1,13 @@
-
-from playwright.sync_api import sync_playwright
-import time
-
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
-    page = browser.new_page()
-    page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
-    page.pause()
-
+#
+# from playwright.sync_api import sync_playwright
+# import time
+#
+# with sync_playwright() as p:
+#     browser = p.chromium.launch(headless=False)
+#     page = browser.new_page()
+#     page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
+#     page.pause()
+#
 
 
 # from playwright.sync_api import sync_playwright
@@ -115,7 +115,22 @@ import os
 #     excel.close()
 #
 # funkcja('moninski')
-#
-#
-#
 
+import pandas as pd
+import ollama
+
+df = pd.read_excel(r'C:\Users\02703821\Elanco\CH - Salesforce Source File\EAHSAP DE & CH mit Details (Piotr).xlsx')
+
+prompt = f"""
+Przeanalizuj dane klientów:
+{df.head(20).to_string()}
+10
+"""
+
+response = ollama.chat(
+model="llama3",
+messages=[
+{"role": "user", "content": prompt}
+]
+)
+print(response["message"]["content"])
