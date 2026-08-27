@@ -28,9 +28,11 @@ class licencja:
 
     def snow_ticket(self):
         self.pw = sync_playwright().start()
-        self.browser = self.pw.chromium.launch(channel= "chromium", headless= False)
+        self.browser = self.pw.chromium.launch(headless= False)
         self.tab = self.browser.new_page()
-        self.tab.goto(link_do_snow)
+        self.tab.goto(link_do_snow,wait_until="domcontentloaded")
+        self.tab.get_by_role("textbox", name="Enter your email, phone, or").fill("PIOTR.PIENKOWSKI@elancoah.com")
+        self.tab.keyboard.press("Enter")
         self.tab.locator("#s2id_sp_formfield_sales_organization a").click()
         self.tab.get_by_role("option", name="DE01").click()
         self.tab.locator("#s2id_sp_formfield_type_of_request a").click()
@@ -53,7 +55,7 @@ class licencja:
         with self.tab.expect_file_chooser() as fca:
             self.tab.get_by_role("button", name = "Upload Attachment for VET").click()
         for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
-            if i.endswith(('.pdf', '.jpg')):
+            if i.endswith(('.pdf', '.jpg', '.png')):
                 license_chooser = fca.value
                 license_chooser.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\', i))
                 break
@@ -70,7 +72,8 @@ class licencja:
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
         self.wb.save(self.sciezka)
         self.snow_ticket()
-        time.sleep(300)
+        input("Naciśnij Enter po zalogowaniu...")
+
 
     def C06(self):
         self.ws['E23'] =  'C06'
@@ -84,7 +87,8 @@ class licencja:
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
         self.wb.save(self.sciezka)
         self.snow_ticket()
-        time.sleep(300)
+        input("Naciśnij Enter po zalogowaniu...")
+
 
     def C34(self):
         self.ws['E23'] =  'C34'
@@ -98,7 +102,8 @@ class licencja:
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
         self.wb.save(self.sciezka)
         self.snow_ticket()
-        time.sleep(9999999)
+        input("Naciśnij Enter po zalogowaniu...")
 
 
-licencja("50008778").C33()
+
+licencja("50016340").C34()

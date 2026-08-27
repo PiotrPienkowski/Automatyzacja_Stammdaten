@@ -1,13 +1,13 @@
-#
-# from playwright.sync_api import sync_playwright
-# import time
-#
-# with sync_playwright() as p:
-#     browser = p.chromium.launch(headless=False)
-#     page = browser.new_page()
-#     page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
-#     page.pause()
-#
+
+from playwright.sync_api import sync_playwright
+import time
+
+with sync_playwright() as p:
+    browser = p.chromium.launch(headless=False)
+    page = browser.new_page()
+    page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
+    page.pause()
+
 
 
 # from playwright.sync_api import sync_playwright
@@ -24,6 +24,8 @@
 # from os import path
 
 import pandas as pd
+import playwright.async_api
+import win32com
 # import os
 #
 # prath = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
@@ -116,21 +118,97 @@ import os
 #
 # funkcja('moninski')
 
-import pandas as pd
-import ollama
 
-df = pd.read_excel(r'C:\Users\02703821\Elanco\CH - Salesforce Source File\EAHSAP DE & CH mit Details (Piotr).xlsx')
+# df = pd.read_excel(r'C:\Users\02703821\Elanco\CH - Salesforce Source File\EAHSAP DE & CH mit Details (Piotr).xlsx')
+#
+# prompt = f"""
+# Przeanalizuj dane klientów:
+# {df.head(20).to_string()}
+# 10
+# """
+#
+# response = ollama.chat(
+# model="llama3",
+# messages=[
+# {"role": "user", "content": prompt}
+# ]
+# )
+# print(response["message"]["content"])
 
-prompt = f"""
-Przeanalizuj dane klientów:
-{df.head(20).to_string()}
-10
-"""
+# from playwright.sync_api import sync_playwright
+# import time
+#
+# with sync_playwright() as p:
+#     browser = p.chromium.launch(headless=False)
+#     page = browser.new_page()
+#     page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
+#     page.pause()
+#
 
-response = ollama.chat(
-model="llama3",
-messages=[
-{"role": "user", "content": prompt}
-]
-)
-print(response["message"]["content"])
+# from playwright.sync_api import sync_playwright
+#
+#
+# pl = sync_playwright().start()
+# chrome = pl.chromium.launch(headless = False)
+# page = chrome.new_page()
+# page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0",wait_until="domcontentloaded")
+# page.get_by_role("textbox", name="Enter your email, phone, or").fill("PIOTR.PIENKOWSKI@elancoah.com")
+# page.keyboard.press("Enter")
+# input("Naciśnij Enter po zalogowaniu...")
+
+from playwright.sync_api import sync_playwright
+
+# with sync_playwright() as p:
+#
+#     context = p.chromium.launch_persistent_context(
+#          user_data_dir=r"C:\PlaywrightProfile",
+#          channel="chrome",
+#          headless=False
+# )
+#     page = context.new_page()
+#     page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
+#     input("Enter...")
+
+# from playwright.sync_api import sync_playwright
+#
+# pl = sync_playwright().start()
+# context = pl.chromium.launch_persistent_context(user_data_dir=r"C:\PlaywrightProfile",channel="chrome",headless=False)
+# page = context.new_page()
+# page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
+# input("Enter...")
+
+
+# from playwright.sync_api import sync_playwright
+#
+# with sync_playwright() as p:
+#     context = p.chromium.launch_persistent_context(
+#     user_data_dir=r"C:\Users\02703821\playwright_profile",
+#     headless=False
+#     )
+#
+#     page = context.new_page()
+#
+#     page.goto("https://thespot.elanco.com")
+#
+#     input("Zaloguj się ręcznie i naciśnij Enter...")
+#
+#     context.close()
+
+# import time
+# from pywinauto import Desktop
+# import win32com.client as win32
+#
+# path = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\BTM Template.xlsx'
+#
+# excel = win32.Dispatch("Excel.Application")
+# excel.Visible = True
+# wb = excel.Workbooks.Open(path)
+# ws = wb.Worksheets(1)
+# wb.RefreshAll()
+#
+# time.sleep(5)
+#
+# dlg = Desktop(backend="uia").window(title_re=".*Pick an account.*")
+# dlg.wait("visible", timeout=30)
+#
+# print("okno znalezione")

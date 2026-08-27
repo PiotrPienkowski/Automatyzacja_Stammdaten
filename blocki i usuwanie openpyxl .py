@@ -16,12 +16,13 @@ class snow_ticket:
     def __init__(self):
 
         self.pw = sync_playwright().start()
-        self.browser = self.pw.chromium.launch(channel="chrome",headless=False)
+        self.browser = self.pw.chromium.launch(headless=False)
         self.page = self.browser.new_page()
 
     def snow_de(self, request_type = "Block/unblock"):
-        self.page.goto(snow)
-        self.page.wait_for_load_state("networkidle")
+        self.page.goto(snow, wait_until="domcontentloaded")
+        self.page.get_by_role("textbox", name="Enter your email, phone, or").fill("PIOTR.PIENKOWSKI@elancoah.com")
+        self.page.keyboard.press("Enter")
         self.page.locator("#s2id_sp_formfield_sales_organization a").click()
         self.page.get_by_role("option", name="DE01").click()
         self.page.locator("#s2id_sp_formfield_type_of_request a").click()
@@ -38,7 +39,9 @@ class snow_ticket:
         self.page.locator('#cmd_form_attached input[type="file"]').set_input_files(rf"{new_file}\{self.CN}.xlsm")
 
     def snow_ch(self,request_type = "Block/unblock"):
-        self.page.goto(snow_ch)
+        self.page.goto(snow_ch, wait_until="domcontentloaded")
+        self.page.get_by_role("textbox", name="Enter your email, phone, or").fill("PIOTR.PIENKOWSKI@elancoah.com")
+        self.page.keyboard.press("Enter")
         self.page.locator("#s2id_sp_formfield_type_of_request a").click()
         self.page.get_by_role("option", name= request_type ).click()
         self.page.locator("#s2id_sp_formfield_account_group a").click()
@@ -136,7 +139,7 @@ class ch(de):
         self.snow_ch("Deletion Flag")
         time.sleep(300)
 
-ch("8").remove_central_order_and_deletion_flag()
+de("1").set_central_order_block ()
 
 
 
