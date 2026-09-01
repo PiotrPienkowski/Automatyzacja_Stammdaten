@@ -27,38 +27,38 @@ class licencja:
 
 
     def snow_ticket(self):
-        self.pw = sync_playwright().start()
-        self.browser = self.pw.chromium.launch(headless= False)
-        self.tab = self.browser.new_page()
-        self.tab.goto(link_do_snow,wait_until="domcontentloaded")
-        self.tab.get_by_role("textbox", name="Enter your email, phone, or").fill("PIOTR.PIENKOWSKI@elancoah.com")
-        self.tab.keyboard.press("Enter")
-        self.tab.locator("#s2id_sp_formfield_sales_organization a").click()
-        self.tab.get_by_role("option", name="DE01").click()
-        self.tab.locator("#s2id_sp_formfield_type_of_request a").click()
-        self.tab.get_by_role("option", name="Change").click()
-        self.tab.get_by_role("textbox", name="Customer Number").fill(self.CN)
-        self.tab.locator("#s2id_sp_formfield_request_priority a").click()
-        self.tab.get_by_role("option", name="Critical - 4 hours").click()
-        self.tab.locator("#s2id_sp_formfield_distribution_channel a").click()
-        self.tab.get_by_role("option", name="10-Domestic").click()
-        self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
-        self.tab.get_by_role("option", name="No", exact= True).click()
-        self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
-        self.tab.locator("#s2id_sp_formfield_account_group a").click()
-        self.tab.get_by_role("option", name="Sold-to").click()
-        self.tab.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create licence (See attached)')
-        with self.tab.expect_file_chooser() as fc:
-            self.tab.get_by_role("button", name = "Upload Attachment for CMD").click()
-        file_chooser = fc.value
-        file_chooser.set_files(self.sciezka)
-        with self.tab.expect_file_chooser() as fca:
-            self.tab.get_by_role("button", name = "Upload Attachment for VET").click()
-        for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
-            if i.endswith(('.pdf', '.jpg', '.png')):
-                license_chooser = fca.value
-                license_chooser.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\', i))
-                break
+        with sync_playwright() as p:
+            self.context = p.chromium.launch_persistent_context(user_data_dir = "snow_profile", headless=False)
+            self.page = self.context.new_page()
+            self.page.goto(link_do_snow,wait_until= 'networkidle')
+            self.tab = self.page
+            self.tab.locator("#s2id_sp_formfield_sales_organization a").click()
+            self.tab.get_by_role("option", name="DE01").click()
+            self.tab.locator("#s2id_sp_formfield_type_of_request a").click()
+            self.tab.get_by_role("option", name="Change").click()
+            self.tab.get_by_role("textbox", name="Customer Number").fill(self.CN)
+            self.tab.locator("#s2id_sp_formfield_request_priority a").click()
+            self.tab.get_by_role("option", name="Critical - 4 hours").click()
+            self.tab.locator("#s2id_sp_formfield_distribution_channel a").click()
+            self.tab.get_by_role("option", name="10-Domestic").click()
+            self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
+            self.tab.get_by_role("option", name="No", exact= True).click()
+            self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
+            self.tab.locator("#s2id_sp_formfield_account_group a").click()
+            self.tab.get_by_role("option", name="Sold-to").click()
+            self.tab.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create licence (See attached)')
+            with self.tab.expect_file_chooser() as fc:
+                self.tab.get_by_role("button", name = "Upload Attachment for CMD").click()
+            file_chooser = fc.value
+            file_chooser.set_files(self.sciezka)
+            with self.tab.expect_file_chooser() as fca:
+                self.tab.get_by_role("button", name = "Upload Attachment for VET").click()
+            for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+                if i.endswith(('.pdf', '.jpg', '.png')):
+                    license_chooser = fca.value
+                    license_chooser.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\', i))
+                    break
+            input("Przegladarka otwarta. Enter aby zamknac...")
 
     def C33(self):
         self.ws['E23'] =  'C33'
@@ -72,7 +72,6 @@ class licencja:
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
         self.wb.save(self.sciezka)
         self.snow_ticket()
-        input("Naciśnij Enter po zalogowaniu...")
 
 
     def C06(self):
@@ -87,7 +86,7 @@ class licencja:
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
         self.wb.save(self.sciezka)
         self.snow_ticket()
-        input("Naciśnij Enter po zalogowaniu...")
+
 
 
     def C34(self):
@@ -102,8 +101,6 @@ class licencja:
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
         self.wb.save(self.sciezka)
         self.snow_ticket()
-        input("Naciśnij Enter po zalogowaniu...")
-
 
 
 licencja("50727431").C34()

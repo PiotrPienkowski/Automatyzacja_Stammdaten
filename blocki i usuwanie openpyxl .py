@@ -139,7 +139,7 @@ class ch(de):
         self.snow_ch("Deletion Flag")
         time.sleep(300)
 
-de("1").set_central_order_block ()
+de("2").set_central_order_block ()
 
 
 

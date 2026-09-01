@@ -4,14 +4,9 @@ import datetime as dt
 import win32com.client as  win32
 import os
 
-##1  Definiujemy zmienne globalne
-
-
 sciezka = r'C:\Users\02703821\Elanco\CS-SD-DB Exchange - General'
 link_dla_zespolow = r'https://elancoah.sharepoint.com/sites/CS-SD-DBExchange/Shared%20Documents/Forms/AllItems.aspx?id=%2Fsites%2FCS%2DSD%2DDBExchange%2FShared%20Documents%2FGeneral&viewid=1b4638f8%2Df1c6%2D41dc%2Dae6d%2D04c3dfb7ec95&FolderCTID=0x012000C4F2DFAEE10E0942AEE5E850EF5504DE'
 today = dt.date.today()
-
-##2. usuwamy wszystkie pliki znajdujace sie w katalogu
 
 for i in os.listdir(sciezka):
     pelna_sciezka = os.path.join(sciezka, i)
@@ -19,23 +14,12 @@ for i in os.listdir(sciezka):
     if pelna_sciezka.endswith('.xlsx'):
         os.remove(pelna_sciezka)
 
-##3. zaczybamy z plikiem DE
-
-# otwiera plik znajdujacy sie na sharepoincie i majacy dostep do modelu semantycznego DE
 excel = win32.Dispatch("Excel.Application")
 excel.Visible = True
 wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\source file\semantic_model_de.xlsx')
-
-# klika przycisk refresh all
 wb.RefreshAll()
-
-# czekaj az odswiezanie sie zakonczy
 excel.CalculateUntilAsyncQueriesDone()
-
 ws = wb.Worksheets('central order block vs delf de')
-
-# UsedRange oznacza wszystkie komórki, które zawierają dane.
-# Value pobiera wartości z tych komórek.
 data = ws.UsedRange.Value
 
 df = pd.DataFrame(data)
@@ -45,26 +29,17 @@ df['Customer Service'] = ""
 df['Cash App'] = ""
 df['Credit Team'] = ""
 df = df.iloc[:, 1:]
-
 df.to_excel(rf"C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\DE {today}.xlsx", index=False)
 wb.Close(SaveChanges=False)  # mowi ze nie zapisuje zmiany w zmiennej wb
 
 
-## 4.zaczynamy w plikiem ch
-
-# excel = win32.Dispatch("Excel.Application")
-# excel.Visible = False
 wb1 = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CS-SD-DB Exchange - General\source file\semantic model ch.xlsx')
-
 wb1.RefreshAll()
 excel.CalculateUntilAsyncQueriesDone()
-
 ws1 = wb1.Worksheets('centralorderblockvsdelfch')
-
 data1 = ws1.UsedRange.Value
 df1 = pd.DataFrame(data1)
 df1 = df1[df1[0] == 'yes']
-
 df1['Customer Service'] = ""
 df1['Cash App'] = ""
 df1['Credit Team'] = ""
