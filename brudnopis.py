@@ -1,12 +1,12 @@
-
-from playwright.sync_api import sync_playwright
-import time
-
-with sync_playwright() as p:
-    browser = p.chromium.launch(headless=False)
-    page = browser.new_page()
-    page.goto("https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0")
-    page.pause()
+#
+# from playwright.sync_api import sync_playwright
+# import time
+#
+# with sync_playwright() as p:
+#     browser = p.chromium.launch(headless=False)
+#     page = browser.new_page()
+#     page.goto("https://login.veevanetwork.com/auth/login?retURL=https%3A%2F%2Felanco.veevanetwork.com/ui/",wait_until="domcontentloaded")
+#     page.pause()
 
 
 
@@ -212,3 +212,20 @@ from playwright.sync_api import sync_playwright
 # dlg.wait("visible", timeout=30)
 #
 # print("okno znalezione")
+
+# locator("div").nth(5)
+# get_by_text("Log in with")
+
+from playwright.sync_api import sync_playwright
+import time
+
+with sync_playwright() as p:
+    context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile",headless=False)
+    page = context.new_page()
+    page.goto("https://elanco.veevanetwork.com/ui/",wait_until="networkidle")
+    page.get_by_role("textbox", name ="User Name").fill("PIOTR.PIENKOWSKI@elancoah.com")
+    page.get_by_role("textbox", name ="Password").fill("4117Rkxe!!!!")
+    page.locator("div").nth(5).click()
+    page.get_by_role("textbox",name= "Enter your email, phone, or").fill("PIOTR.PIENKOWSKI@elancoah.com")
+    page.get_by_role("button", name = "Next").click()
+    time.sleep(300)

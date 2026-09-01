@@ -106,4 +106,4 @@ class licencja:
 
 
 
-licencja("50016340").C34()
+licencja("50727431").C34()
