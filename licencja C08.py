@@ -72,13 +72,7 @@ def C08(CN, BTM):
     wb3.save(new_file1)
     wb3.close()
     wb1.Close(SaveChanges=False)
-
-    # wb_tracker = excel.Workbooks.Open(tracker)
-    # ws_tracker = wb_tracker.Sheets("Piotr- technical tab 2")
-    # table = ws_tracker.ListObjects("Tabela3")
-    # table.AutoFilter.ShowAllData()
-    # table.Range.AutoFilter(Field=9, Criteria1= CN)
-
+    excel.Quit()
 
     outlook = win32.Dispatch('Outlook.Application')
     new_mail = outlook.CreateItem(0)
@@ -140,6 +134,7 @@ def C08(CN, BTM):
     page.get_by_role("button", name = "Upload Attachment for VET").click()
     page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
 
+
     with page.expect_file_chooser() as fc:
         page.get_by_role(
             "button",
@@ -154,6 +149,15 @@ def C08(CN, BTM):
             cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
             break
 
-    time.sleep(99999)
+    result = os.system(
+        "taskkill /F /IM excel.exe 1>nul 2>nul")  ## >nul (czarna dziura nic nie wyswietla) - przekierowuje standardowe komunikaty do "kosza" (1),przekierowuje komunikaty błędów do kosza 2)
+    if result != 0:  # 0 to jest polecenie wykonane poprawnie tzn. procesy zamkniete <>0 blad systemwy ale nie blad obslugiwany przez sxcept
+        print("Nie znaleziono otwartego Excela")
+
+    excel1= win32.Dispatch('Excel.Application')
+    excel1.Visible = True
+    wb_tracker = excel1.Workbooks.Open(tracker)
+    ws_tracker = wb_tracker.Worksheets('Piotr- technical tab 2').Activate()
+    input("Nacisnij Enter aby zamknac...")
 
 C08('50884388','4667675')
