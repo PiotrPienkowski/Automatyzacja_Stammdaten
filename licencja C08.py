@@ -18,20 +18,17 @@ def C08(CN, BTM):
 
     excel = win32.Dispatch('Excel.Application')
     excel.Visible = True
+
     wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
     ws = wb.Worksheets('Sheet1')
     ws.Range('A12').Value = 'DE01'
     ws.Range('B12').Value = 'Change'
     ws.Range('C12').Value = 'Sold-to'
-    excel.Application.Run("CreatingHeader")
-    excel.CalculateUntilAsyncQueriesDone()
-
     ws.Range('E5').Value = CN
     ws.Range('E23').Value = "C08"
     ws.Range('E59').Value = 'Yes'
     ws.Range('E60').Value = 'C08 - DEA Licence/Narcotic'
     ws.Range('E61').Value = BTM
-
     new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence.xlsm'
     wb.CheckCompatibility = False
     wb.SaveAs(new_file)
@@ -39,36 +36,25 @@ def C08(CN, BTM):
 
     wb1 = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\BTM Template.xlsx')
     ws1 = wb1.Worksheets(1)
-
     wb1.RefreshAll()
     excel.CalculateUntilAsyncQueriesDone()
     data1 = ws1.UsedRange.Value
     df = pd.DataFrame(data1)
-
-    # pierwszy wiersz -> nagłówki
     df.columns = df.iloc[0]
-
-    # usuń pierwszy wiersz
     df = df.iloc[1:].reset_index(drop=True)
     df = df[df['Kundennummer'].astype(str).str.replace('.0', '', regex=False) == CN]
     df['KLIENT'] = '342'
     df['NR_BTM'] = BTM
-
     new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx'
     df.to_excel(new_file1, index=False)
-
     wb3 = load_workbook(new_file1)
     ws3 = wb3.active
-
     colour = PatternFill(fill_type='solid', fgColor='C0C0C0')
-
     for cell in ws3[1]:
         cell.fill = colour
         ws3.column_dimensions[cell.column_letter].width = 20
-
     for col in ['C', 'D', 'E', 'F']:
         ws3.column_dimensions[col].width = 40
-
     wb3.save(new_file1)
     wb3.close()
     wb1.Close(SaveChanges=False)
@@ -109,7 +95,6 @@ def C08(CN, BTM):
     for file in os.listdir(path):
         if file.lower().endswith('.pdf'):
             new_mail.Attachments.Add(os.path.join(path, file))
-
     new_mail.Display()
 
     start = sync_playwright().start()
@@ -133,17 +118,13 @@ def C08(CN, BTM):
     page.get_by_role("option", name="Sold-to").click()
     page.get_by_role("button", name = "Upload Attachment for VET").click()
     page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
-
-
     with page.expect_file_chooser() as fc:
         page.get_by_role(
             "button",
             name = "Upload Attachment for CMD").click()
     fc.value.set_files(new_file)
-
     with page.expect_file_chooser()as cf1:
         page.get_by_role("button", name="Upload Attachment for VET").click()
-
     for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
         if os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i).endswith(('.pdf','.jpg', '.png')):
             cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
@@ -157,7 +138,7 @@ def C08(CN, BTM):
     excel1= win32.Dispatch('Excel.Application')
     excel1.Visible = True
     wb_tracker = excel1.Workbooks.Open(tracker)
-    ws_tracker = wb_tracker.Worksheets('Piotr- technical tab 2').Activate()
+    ws_tracker = wb_tracker.Worksheets('Piotr- technical tab 2')
     input("Nacisnij Enter aby zamknac...")
 
 C08('50884388','4667675')
