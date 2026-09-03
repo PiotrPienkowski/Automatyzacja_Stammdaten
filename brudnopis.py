@@ -1,13 +1,3 @@
-# import win32com.client as win32
-# tracker = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\GTS Bestellungen (3).xlsx'
-#
-# excel1 = win32.Dispatch('Excel.Application')
-# excel1.Visible = True
-# wb_tracker = excel1.Workbooks.Open(tracker)
-# ws_tracker = wb_tracker.Worksheets('Piotr- technical tab 2').Activate()
-# input("czekaj")
-
-
 import time
 import os
 from playwright.sync_api import sync_playwright
@@ -40,11 +30,20 @@ class snow_ticket:
         self.page.get_by_role("option", name="Standard - 48 hours").click()
         self.page.locator("#s2id_sp_formfield_distribution_channel a").click()
         self.page.get_by_role("option", name="10").click()
+        self.page.get_by_role("textbox", name="Additional information").fill(rf'Hi Team, please proceed with block')
         self.page.locator("#s2id_sp_formfield_multiple_requests a").click()
         self.page.get_by_role("option", name="No", exact=True).click()
         self.page.locator("#s2id_sp_formfield_account_group a").click()
         self.page.get_by_role("option", name="Sold-to").click()
         self.page.locator('#cmd_form_attached input[type="file"]').set_input_files(self.new_file)
+        with self.page.expect_file_chooser() as cf:
+            self.page.get_by_role("button", name="Choose a file").click()
+        for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+            file_path1 = os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze',i)
+            if file_path1.lower().endswith('.msg'):
+                cf.value.set_files(file_path1)
+                break
+
 
     def snow_ch(self,request_type = "Block/unblock"):
         self.page.goto(snow_ch, wait_until="domcontentloaded")
@@ -62,8 +61,18 @@ class snow_ticket:
         self.page.get_by_role("option", name="Standard - 48 hours").click()
         self.page.locator("#s2id_sp_formfield_multiple_request a").click()
         self.page.get_by_role("option", name="No").click()
-        ## tu powinien byc domestic
         self.page.locator('#cmd_form_attached input[type="file"]').set_input_files(self.new_file)
+        self.page.get_by_role("textbox", name="Customer Number").fill(self.CN)
+        self.page.get_by_role("textbox", name="Additional information").fill(rf'Hi Team, please proceed with block')
+        with self.page.expect_file_chooser()as cf1:
+            self.page.get_by_role("button", name="Choose a file").click()
+        for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+            file_path = os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze',i)
+            if file_path.lower().endswith('.msg'):
+                cf1.value.set_files(os.path.join(file_path))
+                break
+
+
         time.sleep(300)
 
 class de(snow_ticket):
@@ -92,6 +101,7 @@ class de(snow_ticket):
         self.ws.Range('E14').Value = '01 - Overall block'
         self.zapisywanie()
         self.snow_de()
+        self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please set central order block")
         time.sleep(300)
 
     def remove_central_order_block(self):
@@ -99,12 +109,14 @@ class de(snow_ticket):
         self.ws.Range('E14').Value = '01 - Overall block'
         self.zapisywanie()
         self.snow_de()
+        self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block")
         time.sleep(300)
 
     def remove_deletion_flag(self):
         self.ws.Range('E12').Value = 'Reset (Remove)'
         self.zapisywanie()
         self.snow_de("Deletion Flag")
+        self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove deletion flag")
         time.sleep(300)
 
     def remove_central_order_and_deletion_flag(self):
@@ -113,6 +125,7 @@ class de(snow_ticket):
         self.ws.Range('E14').Value = '01 - Overall block'
         self.zapisywanie()
         self.snow_de("Deletion Flag")
+        self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block and deletion flag")
         time.sleep(300)
 
 class ch(de):
@@ -130,19 +143,22 @@ class ch(de):
         self.ws.Range('E14').Value = '01 - Overall block'
         self.zapisywanie()
         self.snow_ch()
+        self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please set central order block")
         time.sleep(300)
 
     def remove_central_order_block(self):
         self.ws.Range('E13').Value = 'Reset (Remove)'
         self.ws.Range('E14').Value= '01 - Overall block'
         self.zapisywanie()
-        self.snow_ch()
+        self.snow_ch("Deletion Flag")
+        self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block")
         time.sleep(300)
 
     def remove_deletion_flag(self):
         self.ws.Range('E12').Value= 'Reset (Remove)'
         self.zapisywanie()
         self.snow_ch("Deletion Flag")
+        self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove deletion flag")
         time.sleep(300)
 
     def remove_central_order_and_deletion_flag(self):
@@ -151,14 +167,15 @@ class ch(de):
         self.ws.Range('E14').Value = '01 - Overall block'
         self.zapisywanie()
         self.snow_ch("Deletion Flag")
+        self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block and deletion flag")
         time.sleep(300)
 
-de("50723392 ").set_central_order_block()
+ch("8").remove_central_order_and_deletion_flag()
 
 
 
 
-#  klasy de i ch
+#  metody klas de i klasy "de" i "ch"
 # set_central_order_block  - d
 # remove_central_order_block
 # remove_deletion_flag
