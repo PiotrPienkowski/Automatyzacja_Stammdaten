@@ -1,29 +1,27 @@
-from openpyxl import load_workbook
-import warnings
+import win32com.client as win32
 import os
 from playwright.sync_api import sync_playwright
-import time
 
-warnings.filterwarnings(
-"ignore",
-message="Data Validation extension is not supported and will be removed"
-)
+
 os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
 
-link_do_snow = rf'https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0'
-path = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
+link_do_snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
+path = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
 
 
 class licencja:
 
     def __init__(self,CN):
         self.CN = CN
-        self.wb = load_workbook(path, keep_vba=True)
-        self.ws = self.wb.worksheets[0]
-        self.ws['A12'] = 'DE01'
-        self.ws['B12'] = 'Change'
-        self.ws['C12'] = 'Sold-to'
-        self.ws['E5'] = CN
+        excel = win32.Dispatch("Excel.Application")
+        excel.Visible = True
+        self.wb= excel.Workbooks.Open(path)
+        self.ws = self.wb.Worksheets('Sheet1')
+        self.ws.Range('A12').Value = 'DE01'
+        self.ws.Range('B12').Value = 'Change'
+        self.ws.Range('C12').Value = 'Sold-to'
+        self.ws.Range('E5').Value = self.CN
+
 
 
     def snow_ticket(self):
@@ -43,7 +41,6 @@ class licencja:
             self.tab.get_by_role("option", name="10-Domestic").click()
             self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
             self.tab.get_by_role("option", name="No", exact= True).click()
-            self.tab.locator("#s2id_sp_formfield_multiple_requests a").click()
             self.tab.locator("#s2id_sp_formfield_account_group a").click()
             self.tab.get_by_role("option", name="Sold-to").click()
             self.tab.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create licence (See attached)')
@@ -61,45 +58,49 @@ class licencja:
             input("Przegladarka otwarta. Enter aby zamknac...")
 
     def C33(self):
-        self.ws['E23'] =  'C33'
-        self.ws['E59'] = 'Yes'
-        self.ws['E60'] = 'C33 - Vet Samples'
-        self.ws['E61'] = 'NA'
-        self.ws['E62'] = '31.12.2026'
-        self.ws['E63'] = 'NA'
-        self.ws['E64'] = 'CA5536030GQZ1, CA5537030GQZ1, CA5538030GQZ1, CA5539030GQZ1'
-        self.ws['E65'] = '2'
-        self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
-        self.wb.save(self.sciezka)
+        self.ws.Range('E23').Value =  'C33'
+        self.ws.Range('E59').Value = 'Yes'
+        self.ws.Range('E60').Value = 'C33 - Vet Samples'
+        self.ws.Range('E61').Value = 'NA'
+        self.ws.Range('E62').Value  = '31.12.2026'
+        self.ws.Range('E63').Value  = 'NA'
+        self.ws.Range('E64').Value  = 'CA5536030GQZ1, CA5537030GQZ1, CA5538030GQZ1, CA5539030GQZ1'
+        self.ws.Range('E65').Value  = '2'
+        self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws.Range("E23").Value} licence.xlsm'
+        self.wb.SaveAs(self.sciezka)
+        self.wb.Close()
         self.snow_ticket()
 
 
+
     def C06(self):
-        self.ws['E23'] =  'C06'
-        self.ws['E59'] = 'Yes'
-        self.ws['E60'] = 'C06 - Veterinary'
-        self.ws['E61'] = 'NA'
-        self.ws['E62'] = '30.12.9999'
-        self.ws['E63'] = 'L01, L02, L03, L04, NONE'
-        self.ws['E64'] = 'NA'
-        self.ws['E65'] = '9,999,999'
-        self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
-        self.wb.save(self.sciezka)
+        self.ws.Range('E23').Value =  'C06'
+        self.ws.Range('E59').Value = 'Yes'
+        self.ws.Range('E60').Value = 'C06 - Veterinary'
+        self.ws.Range('E61').Value = 'NA'
+        self.ws.Range('E62').Value = '30.12.9999'
+        self.ws.Range('E63').Value = 'L01, L02, L03, L04, NONE'
+        self.ws.Range('E64').Value = 'NA'
+        self.ws.Range('E65').Value = '9,999,999'
+        self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws.Range("E23").Value} licence.xlsm'
+        self.wb.SaveAs(self.sciezka)
+        self.wb.Close()
         self.snow_ticket()
 
 
 
     def C34(self):
-        self.ws['E23'] =  'C34'
-        self.ws['E59'] = 'Yes'
-        self.ws['E60'] = 'C34 - Registration for Complementary Feed for Farm Animals'
-        self.ws['E61'] = 'NA'
-        self.ws['E62'] =  '30.12.9999'
-        self.ws['E63'] = 'L10'
-        self.ws['E64'] = 'NA'
-        self.ws['E65'] = '9,999,999'
-        self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws["E23"].value} licence.xlsm'
-        self.wb.save(self.sciezka)
+        self.ws.Range('E23').Value =  'C34'
+        self.ws.Range('E59').Value = 'Yes'
+        self.ws.Range('E60').Value = 'C34 - Registration for Complementary Feed for Farm Animals'
+        self.ws.Range('E61').Value = 'NA'
+        self.ws.Range('E62').Value =  '30.12.9999'
+        self.ws.Range('E63').Value = 'L10'
+        self.ws.Range('E64').Value = 'NA'
+        self.ws.Range('E65').Value = '9,999,999'
+        self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws.Range("E23").Value} licence.xlsm'
+        self.wb.SaveAs(self.sciezka)
+        self.wb.Close()
         self.snow_ticket()
 
 

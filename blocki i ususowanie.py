@@ -185,3 +185,4 @@ ch("8").remove_central_order_and_deletion_flag()
 ## Do poprawy
 # 1. w klasie ch nie wyswietla siewlasciwy opis w snow additional information
 # 2. dodac context playwright zeby sie nie logowal za kazdym razem
+# 3. sprawdzic czy nie da sie fitrowac po 001 sold-to i 002 ship-to (moze lepiej patrzyc w raport zanim sie wysle)
