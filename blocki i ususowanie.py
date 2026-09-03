@@ -184,3 +184,4 @@ ch("8").remove_central_order_and_deletion_flag()
 
 ## Do poprawy
 # 1. w klasie ch nie wyswietla siewlasciwy opis w snow additional information
+# 2. dodac context playwright zeby sie nie logowal za kazdym razem

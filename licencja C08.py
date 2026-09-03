@@ -4,7 +4,7 @@ from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 from playwright.sync_api import sync_playwright
 import os
-import time
+
 
 path = r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
 link_do_snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
@@ -131,8 +131,8 @@ def C08(CN, BTM):
             break
 
     result = os.system(
-        "taskkill /F /IM excel.exe 1>nul 2>nul")  ## >nul (czarna dziura nic nie wyswietla) - przekierowuje standardowe komunikaty do "kosza" (1),przekierowuje komunikaty błędów do kosza 2)
-    if result != 0:  # 0 to jest polecenie wykonane poprawnie tzn. procesy zamkniete <>0 blad systemwy ale nie blad obslugiwany przez sxcept
+        "taskkill /F /IM excel.exe 1>nul 2>nul")
+    if result != 0:
         print("Nie znaleziono otwartego Excela")
 
     excel1= win32.Dispatch('Excel.Application')
@@ -142,3 +142,7 @@ def C08(CN, BTM):
     input("Nacisnij Enter aby zamknac...")
 
 C08('50884388','4667675')
+
+
+# do poprawy
+# 1. dodac context playwirght zeby sie nie lovowal za kazdym razem
