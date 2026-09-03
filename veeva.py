@@ -1,7 +1,7 @@
 from playwright.sync_api import sync_playwright
 import time
 
-CN = "0050723392 "
+CN = "0050727431"
 
 with sync_playwright() as p:
     context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile",headless=False)
@@ -11,4 +11,4 @@ with sync_playwright() as p:
     search.click()
     search.fill(CN)
     search.press("Enter")
-    page.pause
+    input("wait")
