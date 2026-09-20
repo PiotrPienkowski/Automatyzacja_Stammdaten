@@ -60,7 +60,6 @@ def C08(CN, BTM):
     wb3.close()
     wb1.Close(SaveChanges=False)
 
-
     outlook = win32.Dispatch('Outlook.Application')
     new_mail = outlook.CreateItem(0)
     new_mail.To = 'tl@pharmlog.de;btm@pharmlog.de'
@@ -131,11 +130,6 @@ def C08(CN, BTM):
             cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
             break
 
-    result = os.system(
-        "taskkill /F /IM excel.exe 1>nul 2>nul")
-    if result != 0:
-        print("Nie znaleziono otwartego Excela")
-
     excel1 = win32.Dispatch('Excel.Application')
     excel1.Visible = True
     wb_tracker = excel1.Workbooks.Open(tracker)
@@ -146,8 +140,6 @@ def C08(CN, BTM):
     if tabela.AutoFilter.FilterMode:
         tabela.AutoFilter.ShowAllData()
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
-
-
     input("Nacisnij Enter aby zamknac...")
 
 C08('50012234','4709586')
