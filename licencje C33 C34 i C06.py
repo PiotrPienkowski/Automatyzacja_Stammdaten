@@ -3,10 +3,11 @@ import os
 from playwright.sync_api import sync_playwright
 
 
-os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
-
 link_do_snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
 path = rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
+tracker = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\GTS Bestellungen (4).xlsx'
+
+os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
 
 
 class licencja:
@@ -21,8 +22,6 @@ class licencja:
         self.ws.Range('B12').Value = 'Change'
         self.ws.Range('C12').Value = 'Sold-to'
         self.ws.Range('E5').Value = self.CN
-
-
 
     def snow_ticket(self):
         with sync_playwright() as p:
@@ -55,53 +54,49 @@ class licencja:
                     license_chooser = fca.value
                     license_chooser.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\', i))
                     break
-            input("Przegladarka otwarta. Enter aby zamknac...")
+            input("Press enter to to to Licence Tracker")
+
+    def tracker(self):
+        self.excel1 = win32.Dispatch('Excel.Application')
+        self.excel1.Visible = True
+        self.wb_tracker = self.excel1.Workbooks.Open(tracker)
+        self.ws_tracker = self.wb_tracker.Worksheets('Piotr- technical tab 2')
+        self.ws_tracker.Activate()
+        self.tabela = self.ws_tracker.ListObjects('Tabela3')
+        if self.tabela.AutoFilter.FilterMode:
+            self.tabela.AutoFilter.ShowAllData()
+        self.tabela.Range.AutoFilter(Field=9, Criteria1=self.CN)
+        input("Press enter to close the program")
 
     def C33(self):
         self.ws.Range('E23').Value =  'C33'
         self.ws.Range('E59').Value = 'Yes'
         self.ws.Range('E60').Value = 'C33 - Vet Samples'
-        self.ws.Range('E61').Value = 'NA'
         self.ws.Range('E62').Value  = '31.12.2026'
-        self.ws.Range('E63').Value  = 'NA'
-        self.ws.Range('E64').Value  = 'CA5536030GQZ1, CA5537030GQZ1, CA5538030GQZ1, CA5539030GQZ1'
-        self.ws.Range('E65').Value  = '2'
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws.Range("E23").Value} licence.xlsm'
         self.wb.SaveAs(self.sciezka)
         self.wb.Close()
         self.snow_ticket()
-
-
+        self.tracker()
 
     def C06(self):
         self.ws.Range('E23').Value =  'C06'
         self.ws.Range('E59').Value = 'Yes'
         self.ws.Range('E60').Value = 'C06 - Veterinary'
-        self.ws.Range('E61').Value = 'NA'
-        self.ws.Range('E62').Value = '30.12.9999'
-        self.ws.Range('E63').Value = 'L01, L02, L03, L04, NONE'
-        self.ws.Range('E64').Value = 'NA'
-        self.ws.Range('E65').Value = '9,999,999'
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws.Range("E23").Value} licence.xlsm'
         self.wb.SaveAs(self.sciezka)
         self.wb.Close()
         self.snow_ticket()
-
-
+        self.tracker()
 
     def C34(self):
         self.ws.Range('E23').Value =  'C34'
         self.ws.Range('E59').Value = 'Yes'
         self.ws.Range('E60').Value = 'C34 - Registration for Complementary Feed for Farm Animals'
-        self.ws.Range('E61').Value = 'NA'
-        self.ws.Range('E62').Value =  '30.12.9999'
-        self.ws.Range('E63').Value = 'L10'
-        self.ws.Range('E64').Value = 'NA'
-        self.ws.Range('E65').Value = '9,999,999'
         self.sciezka = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN} create {self.ws.Range("E23").Value} licence.xlsm'
         self.wb.SaveAs(self.sciezka)
         self.wb.Close()
         self.snow_ticket()
+        self.tracker()
 
-
-licencja("50727431").C34()
+licencja("50727431").C33()
