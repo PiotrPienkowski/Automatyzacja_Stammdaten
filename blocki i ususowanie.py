@@ -1,7 +1,10 @@
 import time
 import os
+from platformdirs import user_data_dir
 from playwright.sync_api import sync_playwright
 import win32com.client as win32
+# with sync_playwright() as p:
+
 
 template = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
 snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
@@ -74,6 +77,7 @@ class snow_ticket:
 
 
         time.sleep(300)
+
 
 class de(snow_ticket):
 
@@ -170,8 +174,27 @@ class ch(de):
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block and deletion flag")
         time.sleep(300)
 
-ch("8").remove_central_order_and_deletion_flag()
 
+class veeva:
+
+    def __init__(self,CN):
+        self.CN = CN
+
+    def zamykanie(self):
+        with sync_playwright() as p:
+            self.context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
+            self.new_page = self.context.new_page()
+            self.new_page.goto("https://elanco.veevanetwork.com/ui/",wait_until="networkidle")
+            self.search = self.new_page.locator(".input").first
+            self.search.fill(self.CN)
+            self.search.press("Enter")
+            input("wait")
+
+
+
+
+ch("50012234").set_central_order_block()
+# veeva("0050012234").zamykanie()
 
 
 
