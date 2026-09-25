@@ -97,40 +97,39 @@ def C08(CN, BTM):
             new_mail.Attachments.Add(os.path.join(path, file))
     new_mail.Display()
 
-    start = sync_playwright().start()
-    browser = start.chromium.launch(headless= False)
-    page = browser.new_page()
-    page.goto(link_do_snow,wait_until="domcontentloaded")
-    page.get_by_role("textbox", name="Enter your email, phone, or").fill("PIOTR.PIENKOWSKI@elancoah.com")
-    page.keyboard.press("Enter")
-    page.locator("#s2id_sp_formfield_sales_organization a").click()
-    page.get_by_role("option", name="DE01").click()
-    page.locator("#s2id_sp_formfield_type_of_request a").click()
-    page.get_by_role("option", name="Change").click()
-    page.get_by_role("textbox", name="Customer Number").fill(CN)
-    page.locator("#s2id_sp_formfield_request_priority a").click()
-    page.get_by_role("option", name="Critical - 4 hours").click()
-    page.locator("#s2id_sp_formfield_distribution_channel a").click()
-    page.get_by_role("option", name="10-Domestic").click()
-    page.locator("#s2id_sp_formfield_multiple_requests a").click()
-    page.get_by_role("option", name="No", exact=True).click()
-    page.locator("#s2id_sp_formfield_account_group a").click()
-    page.get_by_role("option", name="Sold-to").click()
-    page.get_by_role("button", name = "Upload Attachment for VET").click()
-    page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
-    with page.expect_file_chooser() as fc:
-        page.get_by_role(
-            "button",
-            name = "Upload Attachment for CMD").click()
-    fc.value.set_files(new_file)
-    with page.expect_file_chooser()as cf1:
-        page.get_by_role("button", name="Upload Attachment for VET").click()
-    for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
-        if os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i).endswith(('.pdf','.jpg', '.png')):
-            cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
-            break
+    with sync_playwright() as p:
+        context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
+        page = context.new_page()
+        page.goto(link_do_snow, wait_until="networkidle")
+        page.keyboard.press("Enter")
+        page.locator("#s2id_sp_formfield_sales_organization a").click()
+        page.get_by_role("option", name="DE01").click()
+        page.locator("#s2id_sp_formfield_type_of_request a").click()
+        page.get_by_role("option", name="Change").click()
+        page.get_by_role("textbox", name="Customer Number").fill(CN)
+        page.locator("#s2id_sp_formfield_request_priority a").click()
+        page.get_by_role("option", name="Critical - 4 hours").click()
+        page.locator("#s2id_sp_formfield_distribution_channel a").click()
+        page.get_by_role("option", name="10-Domestic").click()
+        page.locator("#s2id_sp_formfield_multiple_requests a").click()
+        page.get_by_role("option", name="No", exact=True).click()
+        page.locator("#s2id_sp_formfield_account_group a").click()
+        page.get_by_role("option", name="Sold-to").click()
+        page.get_by_role("button", name = "Upload Attachment for VET").click()
+        page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
+        with page.expect_file_chooser() as fc:
+            page.get_by_role(
+                "button",
+                name = "Upload Attachment for CMD").click()
+        fc.value.set_files(new_file)
+        with page.expect_file_chooser()as cf1:
+            page.get_by_role("button", name="Upload Attachment for VET").click()
+        for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+            if os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i).endswith(('.pdf','.jpg', '.png')):
+                cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
+                break
+        time.sleep(9999999)
 
-    input("Nacisnij Enter aby kontynuowac...")
 
 def tracker(CN):
 
@@ -149,7 +148,6 @@ def tracker(CN):
 
 # C08('50673329','4701840')
 tracker('50673329')
-
 
 # do poprawy
 # 1. dodac context playwirght zeby sie nie lovowal za kazdym razem
