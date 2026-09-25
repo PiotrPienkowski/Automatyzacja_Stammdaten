@@ -141,13 +141,15 @@ def tracker(CN):
     time.sleep(1)
     ws_tracker.Activate()
     tabela = ws_tracker.ListObjects('Tabela3')
-    if tabela.AutoFilter.FilterMode:
-        tabela.AutoFilter.ShowAllData()
+    try:
+        ws_tracker.ShowAllData()
+    except:
+        pass
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
 # C08('50673329','4701840')
-tracker('50673329')
+tracker('50009815')
 
 # do poprawy
 # 1. dodac context playwirght zeby sie nie lovowal za kazdym razem

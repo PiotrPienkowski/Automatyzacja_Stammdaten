@@ -56,17 +56,7 @@ class licencja:
                     break
             input("Press enter to to to Licence Tracker")
 
-    def tracker(self):
-        self.excel1 = win32.Dispatch('Excel.Application')
-        self.excel1.Visible = True
-        self.wb_tracker = self.excel1.Workbooks.Open(tracker)
-        self.ws_tracker = self.wb_tracker.Worksheets('Piotr- technical tab 2')
-        self.ws_tracker.Activate()
-        self.tabela = self.ws_tracker.ListObjects('Tabela3')
-        if self.tabela.AutoFilter.FilterMode:
-            self.tabela.AutoFilter.ShowAllData()
-        self.tabela.Range.AutoFilter(Field=9, Criteria1=self.CN)
-        input("Press enter to close the program")
+
 
     def C33(self):
         self.ws.Range('E23').Value =  'C33'
@@ -99,4 +89,25 @@ class licencja:
         self.snow_ticket()
         self.tracker()
 
-licencja("50727431").C33()
+
+class Tracker:
+
+    def __init__(self,CN):
+        self.CN = CN
+
+    def tracker(self):
+        self.excel1 = win32.Dispatch('Excel.Application')
+        self.excel1.Visible = True
+        self.wb_tracker = self.excel1.Workbooks.Open(tracker)
+        self.ws_tracker = self.wb_tracker.Worksheets('Piotr- technical tab 2')
+        self.ws_tracker.Activate()
+        self.tabela = self.ws_tracker.ListObjects('Tabela3')
+        try:
+            self.ws_tracker.ShowAllData()
+        except:
+            pass
+        self.tabela.Range.AutoFilter(Field=9, Criteria1=self.CN)
+        input("Press enter to close the program")
+
+# licencja("50727431").C33()
+Tracker("50581946").tracker()
