@@ -130,9 +130,14 @@ def C08(CN, BTM):
             cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
             break
 
+    input("Nacisnij Enter aby kontynuowac...")
+
+def tracker(CN):
+
+    os.system("taskkill /F /IM excel.exe 1>nul 2>nul")
     excel1 = win32.Dispatch('Excel.Application')
     excel1.Visible = True
-    wb_tracker = excel1.Workbooks.Open(tracker)
+    wb_tracker = excel1.Workbooks.Open(rf'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\GTS Bestellungen (4).xlsx')
     ws_tracker = wb_tracker .Worksheets('Piotr- technical tab 2')
     time.sleep(1)
     ws_tracker.Activate()
@@ -142,7 +147,8 @@ def C08(CN, BTM):
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
-C08('50012234','4709586')
+# C08('50673329','4701840')
+tracker('50673329')
 
 
 # do poprawy

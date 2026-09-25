@@ -193,8 +193,8 @@ class veeva:
 
 
 
-ch("50012234").set_central_order_block()
-# veeva("0050012234").zamykanie()
+de("50022292").set_central_order_block()
+# veeva("0050009662").zamykanie()
 
 
 

@@ -36,22 +36,23 @@ import os
 
 ################## tu wstaw dane z prompta
 
-Name1 = "Max-Planck-Institut für"
-Name2 = "Neurobiologie des Verhaltens"
-Name3 = "Dr. Damian Wallace"
-Street_1 = "Ludwig-Erhard-Allee 2"
-City = "Bonn"
+Name1 = "Tierarztpraxis Zauner"
+Name2 = "Ann-Sophie Zauner"
+Name3 = ""
+Street_1 = "Marktplatz 11"
+City = "Suhlendorf"
 Region = ""
-Postal_Code = "53175"
+Postal_Code = "29562"
 seatch_terem2 = "AWRZ/TP/"
-Phone_Number = "0228 9656-125"
+Phone_Number = "+49 5820 383"
 DMR_Reference_field_starts_with = ""
-E_Invoicing = "Yes - with pdf"
-Email_Address = "invoice-csar@gv.mpg.de"
-Email_Address_Notes = "EDOC_DE"
+E_Invoicing = ""
+Email_Address = ""
+Email_Address_Notes = ""
 Sales_Rep = ""
 Create_GTS_with_new_account = ""
 License_Type = ""
+
 
 ########################################################################
 
