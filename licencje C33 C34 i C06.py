@@ -109,5 +109,5 @@ class Tracker:
         self.tabela.Range.AutoFilter(Field=9, Criteria1=self.CN)
         input("Press enter to close the program")
 
-# licencja("50727431").C33()
-Tracker("50581946").tracker()
+licencja("50727431").C33()
+# Tracker("50581946").tracker()
