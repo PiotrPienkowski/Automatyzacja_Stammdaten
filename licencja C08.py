@@ -148,8 +148,8 @@ def tracker(CN):
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
-C08('50673329','4701840')
-# tracker('50673329')
+# C08('50017711','4585078')
+tracker('50017711')
 
 # do poprawy
 # 1. dodac context playwirght zeby sie nie lovowal za kazdym razem
