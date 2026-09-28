@@ -100,7 +100,7 @@ def C08(CN, BTM):
     with sync_playwright() as p:
         context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
         page = context.new_page()
-        page.goto(link_do_snow, wait_until="networkidle")
+        page.goto(link_do_snow, wait_until="load")
         page.keyboard.press("Enter")
         page.locator("#s2id_sp_formfield_sales_organization a").click()
         page.get_by_role("option", name="DE01").click()
@@ -148,8 +148,8 @@ def tracker(CN):
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
-# C08('50673329','4701840')
-tracker('50673329')
+C08('50673329','4701840')
+# tracker('50673329')
 
 # do poprawy
 # 1. dodac context playwirght zeby sie nie lovowal za kazdym razem

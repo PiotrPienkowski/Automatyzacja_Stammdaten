@@ -3,15 +3,17 @@ import pandas as pd
 from openpyxl import load_workbook
 from openpyxl.styles import PatternFill
 import os
-
+from playwright.sync_api import sync_playwright
+import time
 
 path = r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
+link_do_snow = "https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
 
 result = os.system("taskkill /F /IM excel.exe 1>nul 2>nul") ## >nul (czarna dziura nic nie wyswietla) - przekierowuje standardowe komunikaty do "kosza" (1),przekierowuje komunikaty błędów do kosza 2)
 if result != 0:  #0 to jest polecenie wykonane poprawnie tzn. procesy zamkniete <>0 blad systemwy ale nie blad obslugiwany przez sxcept
     print("Nie znaleziono otwartego Excela")
 
-def C08(CN, BTM):
+def C08_pharmlog_mail_only(CN, BTM):
 
     excel = win32.Dispatch('Excel.Application')
     excel.Visible = True
@@ -26,7 +28,7 @@ def C08(CN, BTM):
     df = df[df['Kundennummer'].astype(str).str.replace('.0', '', regex=False) == CN]
     df['KLIENT'] = '342'
     df['NR_BTM'] = BTM
-    new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx'
+    new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\BTM {CN}.xlsx'
     df.to_excel(new_file1, index=False)
     wb3 = load_workbook(new_file1)
     ws3 = wb3.active
@@ -77,4 +79,60 @@ def C08(CN, BTM):
             new_mail.Attachments.Add(os.path.join(path, file))
     new_mail.Display()
 
-C08('50673329','4701840')
+
+def C08_only_add_licence_to_list(CN, BTM):
+    excel = win32.Dispatch('Excel.Application')
+    excel.Visible = True
+    wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
+    ws = wb.Worksheets('Sheet1')
+    ws.Range('A12').Value = 'DE01'
+    ws.Range('B12').Value = 'Change'
+    ws.Range('C12').Value = 'Sold-to'
+    ws.Range('E5').Value = CN
+    ws.Range('E23').Value = "C08"
+    ws.Range('E59').Value = 'Yes'
+    ws.Range('E60').Value = 'C08 - DEA Licence/Narcotic'
+    ws.Range('E61').Value = BTM
+    new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}.xlsm'
+    wb.CheckCompatibility = False
+    wb.SaveAs(new_file)
+    wb.Close(SaveChanges=False)
+    excel.Quit()
+
+    with sync_playwright() as p:
+        context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
+        page = context.new_page()
+        page.goto(link_do_snow, wait_until="load")
+        page.keyboard.press("Enter")
+        page.locator("#s2id_sp_formfield_sales_organization a").click()
+        page.get_by_role("option", name="DE01").click()
+        page.locator("#s2id_sp_formfield_type_of_request a").click()
+        page.get_by_role("option", name="Change").click()
+        page.get_by_role("textbox", name="Customer Number").fill(CN)
+        page.locator("#s2id_sp_formfield_request_priority a").click()
+        page.get_by_role("option", name="Standard - 48 hours").click()
+        page.locator("#s2id_sp_formfield_distribution_channel a").click()
+        page.get_by_role("option", name="10-Domestic").click()
+        page.locator("#s2id_sp_formfield_multiple_requests a").click()
+        page.get_by_role("option", name="No", exact=True).click()
+        page.locator("#s2id_sp_formfield_account_group a").click()
+        page.get_by_role("option", name="Sold-to").click()
+        page.get_by_role("button", name = "Upload Attachment for VET").click()
+        page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, \nPlease create list and attach licence to DMR')
+        with page.expect_file_chooser() as fc:
+            page.get_by_role(
+                "button",
+                name = "Upload Attachment for CMD").click()
+        fc.value.set_files(new_file)
+        with page.expect_file_chooser()as cf1:
+            page.get_by_role("button", name="Upload Attachment for VET").click()
+        for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+            if os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i).endswith(('.pdf','.jpg', '.png')):
+                cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
+                break
+        time.sleep(9999999)
+
+
+
+C08_pharmlog_mail_only('50673329','4701840')
+# C08_only_add_licence_to_list('50673329','4701840')
