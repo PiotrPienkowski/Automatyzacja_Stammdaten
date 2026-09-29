@@ -41,7 +41,7 @@ class snow_ticket:
             self.page.get_by_role("button", name="Choose a file").click()
         for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
             file_path1 = os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze',i)
-            if file_path1.lower().endswith('.msg'):
+            if file_path1.lower().endswith(('.msg','.jpg','.pdf')):
                 cf.value.set_files(file_path1)
                 break
 
@@ -67,7 +67,7 @@ class snow_ticket:
             self.page.get_by_role("button", name="Choose a file").click()
         for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
             file_path = os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze',i)
-            if file_path.lower().endswith('.msg'):
+            if file_path.lower().endswith(('.msg','.jpg','.pdf')):
                 cf1.value.set_files(os.path.join(file_path))
                 break
 
@@ -189,8 +189,8 @@ class veeva:
 
 
 
-ch("50002376").set_central_order_block()
-# veeva("0050009662").zamykanie()
+de("50637923").remove_central_order_and_deletion_flag()
+# veeva("0050637923").zamykanie()
 
 
 
