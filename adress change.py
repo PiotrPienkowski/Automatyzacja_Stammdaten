@@ -10,9 +10,9 @@ import os
 # city - tu wpisz miastp
 # postal_code - tu wpisz kod pocztowy. wszstkie zmienne musza byc w cudzyslowiu " np city = "Berlin"
 
-street1 = "Europastraße 2"
-city = "Satteldorf"
-postal_code = "74589"
+street1 = "Tiergartenstraße 2"
+city = "Erfurt"
+postal_code = "99089"
 
 templatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
 robocze = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
@@ -53,7 +53,7 @@ class snow_ticket:
             self.page.get_by_role("button", name="Choose a file").click()
         for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
             file_path1 = os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze',i)
-            if file_path1.lower().endswith('.pdf','.jpg', '.png'):
+            if file_path1.lower().endswith(('.pdf','.jpg', '.png')):
                 cf.value.set_files(file_path1)
                 break
 
@@ -79,7 +79,7 @@ class snow_ticket:
             self.page.get_by_role("button", name="Choose a file").click()
         for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
             file_path = os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze',i)
-            if file_path.lower().endswith('.msg'):
+            if file_path.lower().endswith(('.pdf','.jpg', '.png')):
                 cf1.value.set_files(os.path.join(file_path))
                 break
 
@@ -100,7 +100,7 @@ class DE(snow_ticket):
         self.ws.Range('E14').Value = city
         self.ws.Range('E17').Value = postal_code
         self.ws.Range('E59').Value = 'No'
-        self.wb.SaveAs(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN}_customer block.xlsm')
+        self.wb.SaveAs(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN}_adress chanhge.xlsm')
         self.wb.Close()
         excel.Application.Quit()
         self.snow_de()
@@ -108,7 +108,7 @@ class DE(snow_ticket):
 
         time.sleep(300)
 
-DE("50017741", "C06")
+DE("50013188", "C06")
 
 
 

@@ -189,7 +189,7 @@ class veeva:
 
 
 
-de("50637923").remove_central_order_and_deletion_flag()
+de("50008764").set_central_order_block ()
 # veeva("0050637923").zamykanie()
 
 

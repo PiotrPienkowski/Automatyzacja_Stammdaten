@@ -148,8 +148,9 @@ def tracker(CN):
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
-# C08('50021092','4550022')
-tracker('50021092')
+# C08('50009432','4471713')
+tracker('50009432')
 
 
 
+# RITM0713960
