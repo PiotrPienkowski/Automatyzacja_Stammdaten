@@ -99,6 +99,7 @@ class DE(snow_ticket):
         self.ws.Range('E12').Value = street1
         self.ws.Range('E14').Value = city
         self.ws.Range('E17').Value = postal_code
+        self.ws.Range('E23').Value = self.reference
         self.ws.Range('E59').Value = 'No'
         self.wb.SaveAs(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN}_adress chanhge.xlsm')
         self.wb.Close()
