@@ -10,16 +10,16 @@ import os
 # city - tu wpisz miastp
 # postal_code - tu wpisz kod pocztowy. wszstkie zmienne musza byc w cudzyslowiu " np city = "Berlin"
 
-street1 = "Tiergartenstraße 2"
-city = "Erfurt"
-postal_code = "99089"
+street1 = "Hindenburgstr. 31"
+city = "Bad Königshofen"
+postal_code = "97631"
 
 templatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
 robocze = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
 snow_de = rf'https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0'
 snow_ch = rf'https://thespot.elanco.com/esc?id=sc_cat_item&table=sc_cat_item&sys_id=666af21697260e907487fd7ef053afd3&recordUrl=com.glideapp.servicecatalog_cat_item_view.do%3Fv%3D1&sysparm_id=666af21697260e907487fd7ef053afd3'
 
-taskkill = os.system('taskkill /f /im chrome.exe')
+taskkill = os.system('taskkill /f /im excel.exe')
 
 
 class snow_ticket:
@@ -106,10 +106,9 @@ class DE(snow_ticket):
         excel.Application.Quit()
         self.snow_de()
 
-
         time.sleep(300)
 
-DE("50013188", "C06")
+DE("50025495", "C06")
 
 
 

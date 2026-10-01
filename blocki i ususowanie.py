@@ -189,8 +189,12 @@ class veeva:
 
 
 
-de("50008764").set_central_order_block ()
-# veeva("0050637923").zamykanie()
+de("50018048").set_central_order_block ()
+# veeva("0050018048").zamykanie()
+
+#RITM0714552
+
+# Wazne- przynajmniej 1 aders musi byc ustawiany na primary
 
 
 

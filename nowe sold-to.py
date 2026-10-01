@@ -36,15 +36,17 @@ import os
 
 ################## tu wstaw dane z prompta
 
-Name1 = "Tierarztpraxis Zauner"
-Name2 = "Ann-Sophie Zauner"
+
+Name1 = "Kleintierzentrum Thumann GmbH"
+Name2 = "Dr. Anke Rathjen"
 Name3 = ""
-Street_1 = "Marktplatz 11"
-City = "Suhlendorf"
+Name4 = ""
+Street_1 = "Neue Burger Straße 22"
+City = "Wilster"
 Region = ""
-Postal_Code = "29562"
+Postal_Code = "25554"
 seatch_terem2 = "AWRZ/TP/"
-Phone_Number = "+49 5820 383"
+Phone_Number = ""
 DMR_Reference_field_starts_with = ""
 E_Invoicing = ""
 Email_Address = ""
@@ -52,6 +54,7 @@ Email_Address_Notes = ""
 Sales_Rep = ""
 Create_GTS_with_new_account = ""
 License_Type = ""
+
 
 
 ########################################################################

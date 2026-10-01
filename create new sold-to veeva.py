@@ -32,28 +32,33 @@ import time
 #  tam gdzie nie musisz nich wypeniac zmiennych to ich nie wypelniaj i wstaw "" nazwy zmiennych zawsze wpisuj zawsze w "".
 # nazw zmiennych nie podawaj w cudzyslowiach podawaj zawsze w cudzyslowiach wartosci zmiennych.  jesli w mailu jest numer
 # telefonu do klienta wpisz go w zmiennej "Phone_Number". zmienne umiejszczaj zawsze jedna zmienna pod druga zeby
-# kazda zmienna byla w oddzielnym wierszu a zmienne musza byc zawsze wyrownane do rpawej - to wazne!
+# kazda zmienna byla w oddzielnym wierszu a zmienne musza byc zawsze wyrownane do rpawej - to wazne! zmienna "Name4"
+# powinna zawsze wygladac tak Name4 = Name1 +" "+ Name2  +" "+ Name3
 
 
 #########################
 
-Name1 = "fellow Hamburg GmbH"
-Name2 = "Dr. med. vet. Helena-Victoria"
-Name3 = "Beatrix Astrid Prinzessin"
-Name4 = ""
-Street_1 = "Eimsbütteler Chaussee 44"
-City = "Hamburg"
+
+Name1 = "Tierärztliche Hausapotheke"
+Name2 = "Dr. Nina Keisers"
+Name3 = ""
+Name4 = Name1 +" "+ Name2 +" "+ Name3
+Street_1 = "Thorenstr. 16"
+City = "Alpen Veen"
 Region = ""
-Postal_Code = "20259"
+Postal_Code = "46519"
 seatch_terem2 = "AWRZ/TP/"
-Phone_Number = "+49 176 6688 3380"
+Phone_Number = ""
 DMR_Reference_field_starts_with = ""
-E_Invoicing = "Yes - with pdf"
-Email_Address = "invoice@fellow.vet"
-Email_Address_Notes = "EDOC_DE"
+E_Invoicing = ""
+Email_Address = ""
+Email_Address_Notes = ""
 Sales_Rep = ""
 Create_GTS_with_new_account = ""
 License_Type = ""
+
+
+
 
 
 
