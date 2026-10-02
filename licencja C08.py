@@ -26,9 +26,18 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
     ws.Range('B12').Value = 'Change'
     ws.Range('C12').Value = 'Sold-to'
     ws.Range('E5').Value = CN
-    ws.Range('E8').Value = Name1
-    ws.Range('E9').Value = Name2
-    ws.Range('E10').Value = Name3
+    if Name1 != False:
+        ws.Range('E8').Value = Name1
+    else:
+        pass
+    if Name2 != False:
+        ws.Range('E9').Value = Name2
+    else:
+        pass
+    if Name3 != False:
+        ws.Range('E10').Value = Name3
+    else:
+        pass
     ws.Range('E23').Value = "C08"
     ws.Range('E59').Value = 'Yes'
     ws.Range('E60').Value = 'C08 - DEA Licence/Narcotic'
@@ -51,10 +60,16 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
     df['NR_BTM'] = BTM
     if Name1 != False:
         df.iloc[0,2] = Name1
+    else:
+        pass
     if Name2 != False:
         df.iloc[0,2] = Name2
+    else:
+        pass
     if Name3 != False:
         df.iloc[0,2] = Name3
+    else:
+        pass
     new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx'
     df.to_excel(new_file1, index=False)
     wb3 = load_workbook(new_file1)
@@ -158,7 +173,7 @@ def tracker(CN):
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
-C08('50853365','4703230', Name1= 'test')
+C08('50853365','4703230', Name1= "a", Name2= "b")
 # tracker('50018813')
 
 
