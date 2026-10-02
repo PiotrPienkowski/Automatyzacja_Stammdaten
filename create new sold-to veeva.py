@@ -39,14 +39,14 @@ import time
 #########################
 
 
-Name1 = "Tierärztliche Hausapotheke"
-Name2 = "Dr. Nina Keisers"
-Name3 = ""
-Name4 = Name1 +" "+ Name2 +" "+ Name3
-Street_1 = "Thorenstr. 16"
-City = "Alpen Veen"
+Name1 = "Tierarztpraxis"
+Name2 = "Christoph Berns"
+Name3 = "Dr. Christoph Berns"
+Name4 = "Tierarztpraxis Christoph Berns Dr. Christoph Berns"
+Street_1 = "Bergstr. 22"
+City = "Uedem"
 Region = ""
-Postal_Code = "46519"
+Postal_Code = "47589"
 seatch_terem2 = "AWRZ/TP/"
 Phone_Number = ""
 DMR_Reference_field_starts_with = ""
@@ -56,6 +56,7 @@ Email_Address_Notes = ""
 Sales_Rep = ""
 Create_GTS_with_new_account = ""
 License_Type = ""
+
 
 
 
