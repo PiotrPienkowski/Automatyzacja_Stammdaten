@@ -19,25 +19,17 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
 
     excel = win32.Dispatch('Excel.Application')
     excel.Visible = True
-
     wb = excel.Workbooks.Open(r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm')
     ws = wb.Worksheets('Sheet1')
     ws.Range('A12').Value = 'DE01'
     ws.Range('B12').Value = 'Change'
     ws.Range('C12').Value = 'Sold-to'
     ws.Range('E5').Value = CN
-    if Name1 != False:
-        ws.Range('E8').Value = Name1
-    else:
-        pass
-    if Name2 != False:
-        ws.Range('E9').Value = Name2
-    else:
-        pass
-    if Name3 != False:
-        ws.Range('E10').Value = Name3
-    else:
-        pass
+    for i,k in zip([ws.Range('E8'), ws.Range('E9'), ws.Range('E10')], [Name1, Name2, Name3]):
+       if k != False:
+           i.Value = k
+       else:
+           pass
     ws.Range('E23').Value = "C08"
     ws.Range('E59').Value = 'Yes'
     ws.Range('E60').Value = 'C08 - DEA Licence/Narcotic'
@@ -58,18 +50,11 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
     df = df[df['Kundennummer'].astype(str).str.replace('.0', '', regex=False) == CN]
     df['KLIENT'] = '342'
     df['NR_BTM'] = BTM
-    if Name1 != False:
-        df.iloc[0,2] = Name1
-    else:
-        pass
-    if Name2 != False:
-        df.iloc[0,2] = Name2
-    else:
-        pass
-    if Name3 != False:
-        df.iloc[0,2] = Name3
-    else:
-        pass
+    for i, k in zip(range(2, 5), [Name1, Name2, Name3]):
+        if k != False:
+            df.iloc[0, i] = k
+        else:
+            pass
     new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx'
     df.to_excel(new_file1, index=False)
     wb3 = load_workbook(new_file1)
@@ -141,7 +126,10 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
         page.locator("#s2id_sp_formfield_account_group a").click()
         page.get_by_role("option", name="Sold-to").click()
         page.get_by_role("button", name = "Upload Attachment for VET").click()
-        page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
+        if any(i !=False for i in [Name1, Name2, Name3]):
+            page.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create C08 licence (See attached) and change the name')
+        else:
+            page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
         with page.expect_file_chooser() as fc:
             page.get_by_role(
                 "button",
@@ -173,7 +161,7 @@ def tracker(CN):
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
-C08('50853365','4703230', Name1= "a", Name2= "b")
+C08('50853365','4703230', "momommo")
 # tracker('50018813')
 
 
