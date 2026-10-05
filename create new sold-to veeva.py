@@ -3,20 +3,20 @@ import time
 
 
 # prompt
-# przeanalizuj dokukent zalaczoy w mailu (licencje) i maila i podaj mi nazwe praktyki z podzialem na zmienne Name1, Name2 oraz
-# Name3. kazdy powinien miec max 34 znaki. jesli nie bedzie potrzeby wpelniania wpisz przy zmiennej "". Pamietaj zeby w jednej
+# Przeanalizuj dokukent zalaczoy w mailu (licencje) i maila i podaj mi nazwe praktyki z podzialem na zmienne Name1, Name2 oraz
+# Name3. Kazdy wiersz powinien miec max 34 znaki. Jesli nie bedzie potrzeby wpelniania zmiennej wpisz przy zmiennej "". Pamietaj zeby w jednej
 # ze zmiennych umiecic osobe odpowiedzialna merytorycznie (weterynarza) za ta apteke - ta informacj musi wynikac z dokumentu.
 # ponadto nazwe i numer ulicy przypisz do zmiennej Street_1 , miasto gdzie znajdujesie praktyka do City, kod pocztowy do
 # Postal_Code tu podaje ci liste wszystkch zmiennych
+# id =
 # Name1=
 # Name2=
 # Name3=
-# Name4 =
 # Street_1=
 # City=
 # Region =
 # Postal_Code=
-# seatch_terem2 =
+# search_term2 =
 # Phone_Number =
 # DMR_Reference_field_starts_with =
 # E_Invoicing  =
@@ -25,39 +25,43 @@ import time
 # Sales_Rep =
 # Create_GTS_with_new_account =
 # License_Type =
-# nie wypelniaj nastepujacych zmiennych.(tu zawse wpisz "") -Name4, Region, DMR_Reference_field_starts_with, Sales_Rep,
-# Create_GTS_with_new_account,License_Type. w polu seatch_terem2 wpisuj "AWRZ/TP/". Jesli wynika to z treesci maila i
-# kliet chce zalozyc e-invoicig wpisz "Yes - with pdf" ,w zmiennej Email Address wpisz maila ktory klient chce wpisac
-# jako mail do odbioru fv elektoroncznych a w zmiennej "Email Address Notes'' wpisz "EDOC_DE".
-#  tam gdzie nie musisz nich wypeniac zmiennych to ich nie wypelniaj i wstaw "" nazwy zmiennych zawsze wpisuj zawsze w "".
-# nazw zmiennych nie podawaj w cudzyslowiach podawaj zawsze w cudzyslowiach wartosci zmiennych.  jesli w mailu jest numer
-# telefonu do klienta wpisz go w zmiennej "Phone_Number". zmienne umiejszczaj zawsze jedna zmienna pod druga zeby
-# kazda zmienna byla w oddzielnym wierszu a zmienne musza byc zawsze wyrownane do rpawej - to wazne! zmienna "Name4"
-# powinna zawsze wygladac tak Name4 = Name1 +" "+ Name2  +" "+ Name3
+
+# Nie wypelniaj nastepujacych zmiennych.(tu zawse wpisz "") - id, Region, DMR_Reference_field_starts_with, Sales_Rep,
+# Create_GTS_with_new_account,License_Type,E-invoicing, Email_Address_Notes. W polu search_terem2 wpisuj "AWRZ/TP/".
+
+# W polu Phone_Number oraz Email_Address wpisz dane jesli wynika to z tresi maila lub dane znajduja sie w stopce.
+
+# Tam gdzie nie musisz nic wypeniac zmiennych to ich nie wypelniaj i wstaw "" nazwy zmiennych zawsze wpisuj zawsze w "".
+
+# Nazw zmiennych nie podawaj w cudzyslowiach podawaj zawsze w cudzyslowiach wartosci zmiennych. Zmienne umiejszczaj zawsze jedna zmienna
+# pod druga zeby kazda zmienna byla w oddzielnym wierszu a zmienne musza byc zawsze wyrownane do prawej - to wazne!
+# Zmienna "Name4" powinna zawsze laczyc zmienne  Name1 +" "+ Name2  +" "+ Name3!. zmienne wypisz jedna pod druga bez spacji.
 
 
 #########################
 
 
-Name1 = "Tierarztpraxis"
-Name2 = "Dr. Catharine Krinn"
+id = ""
+Name1 = "MEDIVET"
+Name2 = "Laura Elisa Hartmann"
 Name3 = ""
-Name4 = ""
-Street_1 = "Hammerschmiedeweg 13"
-City = "Dirlewang"
+Name4 = "MEDIVET Laura Elisa Hartmann"
+Street_1 = "Asternstraße 2"
+City = "Teltow"
 Region = ""
-Postal_Code = "87742"
+Postal_Code = "14513"
 search_term2 = "AWRZ/TP/"
-Phone_Number = "08261-7087759"
-DMR_Reference_field_starts_with = "C06"
+Phone_Number = "+49 163 2880723"
+DMR_Reference_field_starts_with = ""
 E_Invoicing = ""
-Email_Address = "praxis@krinn.net"
+Email_Address = "sabine.hoffmann@medivetgroup.com"
 Email_Address_Notes = ""
 Sales_Rep = ""
 Create_GTS_with_new_account = ""
-License_Type = "Tierärztliche Hausapotheke"
+License_Type = ""
 
 #################################
+
 
 p = sync_playwright().start()
 context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,args=["--start-maximized"],no_viewport=True)

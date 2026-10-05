@@ -134,5 +134,5 @@ def C08_only_add_licence_to_list(CN, BTM):
 
 
 
-C08_pharmlog_mail_only('50673329','4701840')
+C08_pharmlog_mail_only('50752141','4710810')
 # C08_only_add_licence_to_list('50673329','4701840')
