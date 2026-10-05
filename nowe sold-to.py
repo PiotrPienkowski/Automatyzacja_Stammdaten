@@ -36,24 +36,25 @@ import os
 
 ################## tu wstaw dane z prompta
 
-
-Name1 = "Kleintierzentrum Thumann GmbH"
-Name2 = "Dr. Anke Rathjen"
+id= "949768395749527648"
+Name1 = "Tierarztpraxis"
+Name2 = "Dr. Catharine Krinn"
 Name3 = ""
 Name4 = ""
-Street_1 = "Neue Burger Straße 22"
-City = "Wilster"
-Region = ""
-Postal_Code = "25554"
-seatch_terem2 = "AWRZ/TP/"
-Phone_Number = ""
-DMR_Reference_field_starts_with = ""
+Street_1 = "Hammerschmiedeweg 13"
+City = "Dirlewang"
+Region = "Bayern (Bavaria)"
+Postal_Code = "87742"
+search_term2 = "AWRZ/TP/"
+Phone_Number = "08261-7087759"
+DMR_Reference_field_starts_with = "C06"
 E_Invoicing = ""
-Email_Address = ""
+Email_Address = "praxis@krinn.net"
 Email_Address_Notes = ""
 Sales_Rep = ""
 Create_GTS_with_new_account = ""
-License_Type = ""
+License_Type = "Tierärztliche Hausapotheke"
+
 
 
 
@@ -80,7 +81,7 @@ license_types = {
 }
 
 templatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
-lista_salesow = rf'C:\Users\02703821\Elanco\DACH_SFE Team_RedData - 2026 (ab 01.08.206)\2026 PLZ Übersicht D-A-CH (Stand 01.08.2026).xlsx'
+lista_salesow = rf'C:\Users\02703821\Elanco\DACH_SFE Team_RedData - PLZ Liste DE,AT,CH\2026 (ab 01.08.206)\2026 PLZ Übersicht D-A-CH (Stand 01.10.2026).xlsx'
 
 os.system("taskkill /F /IM EXCEL.EXE >nul 2>nul")
 
@@ -100,6 +101,7 @@ class DE:
         return  self.result.iloc[0, 4]
 
     def tworzenie(self,lic_type = False):
+        self.ws.Range("E5").Value = id
         self.ws.Range('E8').Value = Name1
         self.ws.Range('E9').Value = Name2
         self.ws.Range('E10').Value = Name3
@@ -107,7 +109,7 @@ class DE:
         self.ws.Range('E14').Value = City
         self.ws.Range('E16').Value = Region
         self.ws.Range('E17').Value = Postal_Code
-        self.ws.Range('E19').Value = seatch_terem2
+        self.ws.Range('E19').Value = search_term2
         self.ws.Range('E20').Value = Phone_Number
         self.ws.Range('E23').Value = lic_type
         self.ws.Range('E25').Value = E_Invoicing
@@ -117,4 +119,4 @@ class DE:
         self.ws.Range("E59").Value = "Yes"
         self.ws.Range('E60').Value = license_types[lic_type]
 
-DE().tworzenie("C08")
+DE().tworzenie("C06")

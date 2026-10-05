@@ -34,7 +34,10 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
     ws.Range('E59').Value = 'Yes'
     ws.Range('E60').Value = 'C08 - DEA Licence/Narcotic'
     ws.Range('E61').Value = BTM
-    new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence.xlsm'
+    if any (i != False for i in [Name1, Name2, Name3]):
+        new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence and change the name.xlsm'
+    else:
+        new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence.xlsm'
     wb.CheckCompatibility = False
     wb.SaveAs(new_file)
     wb.Close(SaveChanges=False)

@@ -109,7 +109,7 @@ class Tracker:
         self.tabela.Range.AutoFilter(Field=9, Criteria1=self.CN)
         input("Press enter to close the program")
 
-# licencja("50017597").C34()
-Tracker("50017597").tracker()
+licencja("50017597").C34()
+# Tracker("50017597").tracker()
 
 # RITM0715136

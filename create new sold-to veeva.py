@@ -40,28 +40,22 @@ import time
 
 
 Name1 = "Tierarztpraxis"
-Name2 = "Christoph Berns"
-Name3 = "Dr. Christoph Berns"
-Name4 = "Tierarztpraxis Christoph Berns Dr. Christoph Berns"
-Street_1 = "Bergstr. 22"
-City = "Uedem"
+Name2 = "Dr. Catharine Krinn"
+Name3 = ""
+Name4 = ""
+Street_1 = "Hammerschmiedeweg 13"
+City = "Dirlewang"
 Region = ""
-Postal_Code = "47589"
-seatch_terem2 = "AWRZ/TP/"
-Phone_Number = ""
-DMR_Reference_field_starts_with = ""
+Postal_Code = "87742"
+search_term2 = "AWRZ/TP/"
+Phone_Number = "08261-7087759"
+DMR_Reference_field_starts_with = "C06"
 E_Invoicing = ""
-Email_Address = ""
+Email_Address = "praxis@krinn.net"
 Email_Address_Notes = ""
 Sales_Rep = ""
 Create_GTS_with_new_account = ""
-License_Type = ""
-
-
-
-
-
-
+License_Type = "Tierärztliche Hausapotheke"
 
 #################################
 
@@ -98,7 +92,7 @@ page.locator("li:nth-child(18) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 >
 page.locator("li:nth-child(20) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").fill(Name2)
 page.locator("li:nth-child(22) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").fill(Name3)
 page.locator("li:nth-child(27) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1iz0kpc-1 > .sc-1us6m6n-2 > .sc-1us6m6n-0").click()
-page.get_by_text(seatch_terem2, exact=True).click()
+page.get_by_text(search_term2, exact=True).click()
 page.locator("#custom-fields > .sc-12dl7xo-0 > .sc-pfq3ln-0 > li > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").first.fill(Name1)
 page.locator(".sc-12dl7xo-0 > .sc-pfq3ln-0 > li:nth-child(3) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").fill(Name2)
 page.locator("#custom-fields > .sc-12dl7xo-0 > .sc-pfq3ln-0 > li:nth-child(5) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").fill(Name3)
