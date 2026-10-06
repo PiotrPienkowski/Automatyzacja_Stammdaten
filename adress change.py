@@ -10,9 +10,9 @@ import os
 # city - tu wpisz miastp
 # postal_code - tu wpisz kod pocztowy. wszstkie zmienne musza byc w cudzyslowiu " np city = "Berlin"
 
-street1 = "Hindenburgstr. 31"
-city = "Bad Königshofen"
-postal_code = "97631"
+street1 = "Heerstraße 18-20"
+city = "Berlin"
+postal_code = "14052"
 
 templatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
 robocze = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'
@@ -29,7 +29,7 @@ class snow_ticket:
         self.p = sync_playwright().start()
         self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
         self.page = self.context.new_page()
-        self.new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN}_customer block.xlsm'
+        self.new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN}_adress chanhge.xlsm'
 
 
     def snow_de(self):
@@ -48,7 +48,7 @@ class snow_ticket:
         self.page.get_by_role("option", name="No", exact=True).click()
         self.page.locator("#s2id_sp_formfield_account_group a").click()
         self.page.get_by_role("option", name="Sold-to").click()
-        self.page.locator('#cmd_form_attached input[type="file"]').set_input_files(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN}_customer block.xlsm')
+        self.page.locator('#cmd_form_attached input[type="file"]').set_input_files(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN}_adress chanhge.xlsm')
         with self.page.expect_file_chooser() as cf:
             self.page.get_by_role("button", name="Choose a file").click()
         for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
@@ -108,7 +108,7 @@ class DE(snow_ticket):
 
         time.sleep(300)
 
-DE("50025495", "C06")
+DE("50020959", "C06")
 
 
 
