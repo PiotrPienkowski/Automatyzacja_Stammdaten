@@ -84,22 +84,22 @@ license_types = {
 }
 
 bundeslaender = {
-    1: "Baden-Württemberg",
-    2: "Bavaria",
-    3: "Berlin",
-    4: "Brandenburg",
-    5: "Bremen",
-    6: "Hamburg",
-    7: "Hessen",
-    8: "Lower Saxony",
-    9: "Mecklenburg-Western Pomerania",
-    10: "North Rhine-Westphalia",
-    11: "Rhineland-Palatinate",
-    12: "Saarland",
-    13: "Saxony",
-    14: "Saxony-Anhalt",
-    15: "Schleswig-Holstein",
-    16: "Thuringia"
+    "1": "Baden-Württemberg",
+    "2": "Bavaria",
+    "3": "Berlin",
+    "4": "Brandenburg",
+    "5": "Bremen",
+    "6": "Hamburg",
+    "7": "Hessen",
+    "8": "Lower Saxony",
+    "9": "Mecklenburg-Western Pomerania",
+    "10": "North Rhine-Westphalia",
+    "11": "Rhineland-Palatinate",
+    "12": "Saarland",
+    "13": "Saxony",
+    "14": "Saxony-Anhalt",
+    "15": "Schleswig-Holstein",
+    "16": "Thuringia"
 }
 
 
@@ -107,6 +107,7 @@ templatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do p
 lista_salesow = rf'C:\Users\02703821\Elanco\DACH_SFE Team_RedData - PLZ Liste DE,AT,CH\2026 (ab 01.08.206)\2026 PLZ Übersicht D-A-CH (Stand 01.10.2026).xlsx'
 robocze =rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\'
 snow_de = rf'https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0'
+
 
 os.system("taskkill /F /IM EXCEL.EXE >nul 2>nul")
 
@@ -212,23 +213,23 @@ class templatka_DE(snow_ticket_De):
         self.ws.Range('E19').Value = search_term2
         self.ws.Range('E20').Value = Phone_Number
         self.ws.Range('E23').Value = lic_type
-        if lic_type == "C08":
-            self.ws.Range('E61').Value = BTM_number
-        else:
-            pass
         self.ws.Range('E25').Value = E_Invoicing
         self.ws.Range('E26').Value = Email_Address
         self.ws.Range('E27').Value = Email_Address_Notes
         self.ws.Range('E56').Value = self.sales_odpowiedzialny()
         self.ws.Range("E59").Value = "Yes"
         self.ws.Range('E60').Value = license_types[lic_type]
+        if lic_type == "C08":
+            self.ws.Range('E61').Value = BTM_number
+        else:
+            pass
         self.wb.SaveAs(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{id}.xlsm')
         self.wb.Close()
         self.excel.Quit()
         self.snow_ticket_De()
 
 # Veeva()
-# templatka_DE().nowe_sold_to_templatka_i_snowticket("C06", 16)
+# templatka_DE().nowe_sold_to_templatka_i_snowticket("C08", "1", "123")
 
 if input("Czy chcesz utworzyc konto veeva? (Y/N) ").upper() == "Y":
     Veeva()
@@ -240,9 +241,9 @@ else:
 
         if lic_type == "C08":
             BTM_number = input("Podaj numer BTM: ")
-        Region = int(input('Podaj numer Regionu ze slownika: '))
+        Region = input('Podaj numer Regionu ze slownika: ')
 
-        templatka_DE().nowe_sold_to_templatka_i_snowticket()
+        templatka_DE().nowe_sold_to_templatka_i_snowticket(lic_type,Region,BTM_number)
 
 
 
