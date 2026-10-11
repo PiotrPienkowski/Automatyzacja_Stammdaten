@@ -36,29 +36,47 @@ import time
 # Nazw zmiennych nie podawaj w cudzyslowiach podawaj zawsze w cudzyslowiach wartosci zmiennych. Zmienne umiejszczaj zawsze jedna zmienna
 # pod druga zeby kazda zmienna byla w oddzielnym wierszu a zmienne musza byc zawsze wyrownane do prawej - to wazne!
 # Zmienna "Name4" powinna zawsze laczyc zmienne  Name1 +" "+ Name2  +" "+ Name3!. zmienne wypisz jedna pod druga bez spacji.
+# ZMIENNE MUSZA BYC NAPISANE ZAWSZE JEDNA POD DRUGA- TO WAŻNE!
 
 
 #########################
 
-
 id = ""
-Name1 = "MEDIVET"
-Name2 = "Laura Elisa Hartmann"
-Name3 = ""
-Name4 = "MEDIVET Laura Elisa Hartmann"
-Street_1 = "Asternstraße 2"
-City = "Teltow"
+
+Name1 = "Universität Hohenheim"
+
+Name2 = "Zentrale Versuchstierhaltung 670ZVH"
+
+Name3 = "Dr. Jutta Mönchenberg"
+
+Name4 = "Universität Hohenheim Zentrale Versuchstierhaltung Dr. Jutta Mönchenberg"
+
+Street_1 = "Schwerzstr. 15/1"
+
+City = "Stuttgart"
+
 Region = ""
-Postal_Code = "14513"
+
+Postal_Code = "70593"
+
 search_term2 = "AWRZ/TP/"
-Phone_Number = "+49 163 2880723"
+
+Phone_Number = "+49 (0)711 459 24353"
+
 DMR_Reference_field_starts_with = ""
+
 E_Invoicing = ""
-Email_Address = "sabine.hoffmann@medivetgroup.com"
+
+Email_Address = "suzana.cvek@uni-hohenheim.de"
+
 Email_Address_Notes = ""
+
 Sales_Rep = ""
+
 Create_GTS_with_new_account = ""
+
 License_Type = ""
+
 
 #################################
 

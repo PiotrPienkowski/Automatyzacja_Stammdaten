@@ -109,6 +109,3 @@ class DE(snow_ticket):
         time.sleep(300)
 
 DE("50020959", "C06")
-
-
-

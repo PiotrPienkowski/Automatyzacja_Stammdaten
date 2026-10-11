@@ -169,4 +169,3 @@ class DE:
 
 # Veeva()
 DE().nowe_sold_to_templatka_i_snowticket("C06")
-
