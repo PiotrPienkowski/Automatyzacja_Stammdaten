@@ -132,7 +132,7 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
         if any(i !=False for i in [Name1, Name2, Name3]):
             page.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create C08 licence (See attached) and change the name')
         else:
-            page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached)')
+            page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached) and attach licence to list in DMR')
         with page.expect_file_chooser() as fc:
             page.get_by_role(
                 "button",
@@ -164,8 +164,8 @@ def tracker(CN):
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
-C08('50517496','4726797')
-# tracker('50517496')
+# C08('50522122','4586729')
+tracker('50522122')
 
 
-# RITM0717758
+#RITM0719455

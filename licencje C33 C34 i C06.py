@@ -42,7 +42,7 @@ class licencja:
             self.tab.get_by_role("option", name="No", exact= True).click()
             self.tab.locator("#s2id_sp_formfield_account_group a").click()
             self.tab.get_by_role("option", name="Sold-to").click()
-            self.tab.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create licence (See attached)')
+            self.tab.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create licence (See attached) and attach all documents in attachement to list in DMR')
             with self.tab.expect_file_chooser() as fc:
                 self.tab.get_by_role("button", name = "Upload Attachment for CMD").click()
             file_chooser = fc.value
@@ -109,7 +109,7 @@ class Tracker:
         self.tabela.Range.AutoFilter(Field=9, Criteria1=self.CN)
         input("Press enter to close the program")
 
-# licencja("50903016").C34()
-Tracker("50903016").tracker()
+licencja("50608513").C34()
+# Tracker("50903016").tracker()
 
 #RITM0717744
