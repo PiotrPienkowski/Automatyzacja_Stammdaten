@@ -189,8 +189,8 @@ class veeva:
 
 
 
-de("50680364").set_central_order_block()
-# veeva("0050018048").zamykanie()
+de("50598007").remove_central_order_block()
+# veeva("0050598007").zamykanie()
 
 #RITM0717223
 

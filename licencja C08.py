@@ -15,7 +15,7 @@ result = os.system("taskkill /F /IM excel.exe 1>nul 2>nul") ## >nul (czarna dziu
 if result != 0:  #0 to jest polecenie wykonane poprawnie tzn. procesy zamkniete <>0 blad systemwy ale nie blad obslugiwany przez sxcept
     print("Nie znaleziono otwartego Excela")
 
-def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
+def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False, Street = False , PLZ = False, City = False):
 
     excel = win32.Dispatch('Excel.Application')
     excel.Visible = True
@@ -25,7 +25,7 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
     ws.Range('B12').Value = 'Change'
     ws.Range('C12').Value = 'Sold-to'
     ws.Range('E5').Value = CN
-    for i,k in zip([ws.Range('E8'), ws.Range('E9'), ws.Range('E10')], [Name1, Name2, Name3]):
+    for i,k in zip([ws.Range('E8'), ws.Range('E9'), ws.Range('E10'),ws.Range('E12'),ws.Range('E17'),ws.Range('E14')  ], [Name1, Name2, Name3,Street, PLZ, City]):
        if k != False:
            i.Value = k
        else:
@@ -34,8 +34,8 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
     ws.Range('E59').Value = 'Yes'
     ws.Range('E60').Value = 'C08 - DEA Licence/Narcotic'
     ws.Range('E61').Value = BTM
-    if any (i != False for i in [Name1, Name2, Name3]):
-        new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence and change the name.xlsm'
+    if any (i != False for i in [Name1, Name2, Name3, Street, PLZ, City ]):
+        new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence and change the data.xlsm'
     else:
         new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{CN}_create C08 licence.xlsm'
     wb.CheckCompatibility = False
@@ -53,7 +53,7 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
     df = df[df['Kundennummer'].astype(str).str.replace('.0', '', regex=False) == CN]
     df['KLIENT'] = '342'
     df['NR_BTM'] = BTM
-    for i, k in zip(range(2, 5), [Name1, Name2, Name3]):
+    for i, k in zip(range(2, 8), [Name1, Name2, Name3, Street, PLZ, City]):
         if k != False:
             df.iloc[0, i] = k
         else:
@@ -129,8 +129,8 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False):
         page.locator("#s2id_sp_formfield_account_group a").click()
         page.get_by_role("option", name="Sold-to").click()
         page.get_by_role("button", name = "Upload Attachment for VET").click()
-        if any(i !=False for i in [Name1, Name2, Name3]):
-            page.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create C08 licence (See attached) and change the name')
+        if any(i !=False for i in [Name1, Name2, Name3, Street, PLZ,City]):
+            page.get_by_role("textbox", name="Additional information").fill(f'Hello Team, Please create C08 licence (See attached) and change the data')
         else:
             page.get_by_role("textbox", name = "Additional information").fill(f'Hello Team, Please create C08 licence (See attached) and attach licence to list in DMR')
         with page.expect_file_chooser() as fc:
@@ -164,8 +164,37 @@ def tracker(CN):
     tabela.Range.AutoFilter(Field = 9, Criteria1 = CN)
     input("Nacisnij Enter aby zamknac...")
 
-# C08('50522122','4586729')
-tracker('50522122')
+# C08('50839773','4709149')
+# tracker('50839773')
+
+lista = ["N","Y"]
 
 
-#RITM0719455
+if input("do you want to create C08 licence? (press 'Y' or 'N'): ").upper() == lista[0]:
+    if input("do you want to open tracker? (press 'Y' or 'N'): ").upper() == lista[1]:
+        CN = input("please provide a Customer Number: ")
+        tracker(CN)
+
+
+elif input("do you want to change data (adress name etc)? press 'Y' or 'N': '").upper() == lista[0]:
+    CN = input('please provide Customer Number: ')
+    BTM = input('please provide BTM: ')
+    C08(CN,BTM)
+
+else:
+    CN = input("please provide a Customer Number: ")
+    BTM = input('please provide BTM: ')
+    Name1 = input("please provide Name 1: ")
+    Name2 = input("please provide Name 2: ")
+    Name3 = input("please provide Name 3: ")
+    Street = input("please provide Street: ")
+    City = input("please provide City: ")
+    PLZ = input("please provide PLZ: ")
+    C08(CN, BTM, Name1, Name2, Name3, Street, PLZ, City)
+
+
+
+
+
+
+#RITM0723595
