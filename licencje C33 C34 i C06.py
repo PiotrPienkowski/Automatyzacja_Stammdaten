@@ -109,7 +109,24 @@ class Tracker:
         self.tabela.Range.AutoFilter(Field=9, Criteria1=self.CN)
         input("Press enter to close the program")
 
-# licencja("50595814").C06()
-Tracker("50595814").tracker()
+# licencja("50026710").C34()
+# # Tracker("50019975").tracker()
 
-# RITM0723356
+
+x= input ("please provide a Customer Number: " )
+y = int(input("what do you want to do : \n 1 open a tracker \n 2 cerate C06 licence \n 3 create C33 liecence \n 4 create C34 licence \n please press 1 or 2 or 3 or 4: "))
+
+akcje = {
+    1: lambda: Tracker(x).tracker(),
+    2: lambda: licencja(x).C06(),
+    3: lambda: licencja(x).C33(),
+    4: lambda: licencja(x).C34()
+}
+
+
+if y in akcje.keys():
+    akcje[y]()
+
+
+
+
