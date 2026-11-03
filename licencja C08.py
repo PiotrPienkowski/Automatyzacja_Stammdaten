@@ -111,7 +111,7 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False, Street = False , P
     new_mail.Display()
 
     with sync_playwright() as p:
-        context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
+        context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False, channel = "chrome", no_viewport=True)
         page = context.new_page()
         page.goto(link_do_snow, wait_until="load")
         page.keyboard.press("Enter")

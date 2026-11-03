@@ -27,7 +27,7 @@ class snow_ticket:
     def __init__(self,CN):
         self.CN = CN
         self.p = sync_playwright().start()
-        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
+        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False, channel= "chrome", no_viewport=True)
         self.page = self.context.new_page()
         self.new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{self.CN}_adress chanhge.xlsm'
 

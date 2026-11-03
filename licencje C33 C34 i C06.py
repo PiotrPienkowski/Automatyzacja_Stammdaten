@@ -25,7 +25,7 @@ class licencja:
 
     def snow_ticket(self):
         with sync_playwright() as p:
-            self.context = p.chromium.launch_persistent_context(user_data_dir = "snow_profile", headless=False)
+            self.context = p.chromium.launch_persistent_context(user_data_dir = "snow_profile", headless=False, channel='chrome', no_viewport=True)
             self.page = self.context.new_page()
             self.page.goto(link_do_snow,wait_until= 'networkidle')
             self.tab = self.page

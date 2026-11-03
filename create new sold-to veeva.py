@@ -82,7 +82,7 @@ License_Type = ""
 
 
 p = sync_playwright().start()
-context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,args=["--start-maximized"],no_viewport=True)
+context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,channel= "chrome",no_viewport=True)
 page = context.new_page()
 page.goto("https://elanco.veevanetwork.com",wait_until="networkidle")
 page.get_by_role("button", name="Add Record").click()

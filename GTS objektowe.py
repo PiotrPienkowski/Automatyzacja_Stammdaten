@@ -170,7 +170,7 @@ class veeva:
         self.excel_obj = excel_obj
 
         playwright = sync_playwright().start()
-        context = playwright.chromium.launch_persistent_context(headless=False, args=["--start-maximized"], user_data_dir="veeva_profile")
+        context = playwright.chromium.launch_persistent_context(headless=False, user_data_dir="veeva_profile", channel= "chrome", no_viewport=True)
         page = context.new_page()
         page.goto(veeva_website, wait_until="load")
         search = page.locator(".input").first

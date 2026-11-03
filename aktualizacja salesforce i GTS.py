@@ -6,7 +6,7 @@ import time
 report = r'https://elancoconnect.lightning.force.com/lightning/r/Report/00ORP000001DhWP/view'
 
 p = sync_playwright().start()
-context = p.chromium.launch_persistent_context(user_data_dir="snow_profile",headless=False)
+context = p.chromium.launch_persistent_context(user_data_dir="snow_profile",headless=False, channel= "chrome", no_viewport=True)
 page = context.new_page()
 page.goto(report)
 page.frame_locator("iframe").get_by_role("button",name="More Actions - Edit").click()

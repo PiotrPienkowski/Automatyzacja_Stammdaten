@@ -17,7 +17,7 @@ class snow_ticket:
     def __init__(self):
 
         self.p = sync_playwright().start()
-        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,args=["--start-maximized"],no_viewport=True)
+        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,no_viewport=True, channel= "chrome")
         self.page = self.context.new_page()
 
     def snow_de(self, request_type = "Block/unblock"):

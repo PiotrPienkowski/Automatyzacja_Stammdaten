@@ -95,7 +95,7 @@ class Veeva:
 
 
         self.p = sync_playwright().start()
-        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,args=["--start-maximized"], no_viewport=True)
+        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,channel= 'chrome', no_viewport=True)
         self.page = self.context.new_page()
         self.page.goto("https://elanco.veevanetwork.com", wait_until="networkidle")
         self.page.get_by_role("button", name="Add Record").click()
