@@ -33,10 +33,8 @@ class excel:
         for attr, value in zip(["CN", "BTM", "Name1", "Name2", "Name3", "Street", "PLZ", "City"],[CN, BTM, Name1, Name2, Name3, Street, PLZ, City]):
             setattr(self, attr, value)
         for cell, value in zip(["E5", "E8", "E9", "E10", "E12", "E17", "E14"],[CN, Name1, Name2, Name3, Street, PLZ, City]):
-            if value != False:
+            if value != "":
                 self.ws.Range(cell).Value = value
-            else:
-                pass
         self.ws.Range('E23').Value = BTM
         if self.BTM != False:
             self.ws.Range('E59').Value = 'Yes'

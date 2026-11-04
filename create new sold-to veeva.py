@@ -36,7 +36,7 @@ import time
 # Nazw zmiennych nie podawaj w cudzyslowiach podawaj zawsze w cudzyslowiach wartosci zmiennych. Zmienne umiejszczaj zawsze jedna zmienna
 # pod druga zeby kazda zmienna byla w oddzielnym wierszu a zmienne musza byc zawsze wyrownane do prawej - to wazne!
 # Zmienna "Name4" powinna zawsze laczyc zmienne  Name1 +" "+ Name2  +" "+ Name3!. zmienne wypisz jedna pod druga bez spacji.
-# ZMIENNE MUSZA BYC NAPISANE ZAWSZE JEDNA POD DRUGA- TO WAŻNE!
+# ZMIENNE ZAWSZE MUSZA BYC NAPISANE ZAWSZE JEDNA POD DRUGA- TO WAŻNE!
 
 
 #########################

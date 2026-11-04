@@ -26,10 +26,8 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False, Street = False , P
     ws.Range('C12').Value = 'Sold-to'
     ws.Range('E5').Value = CN
     for i,k in zip([ws.Range('E8'), ws.Range('E9'), ws.Range('E10'),ws.Range('E12'),ws.Range('E17'),ws.Range('E14')  ], [Name1, Name2, Name3,Street, PLZ, City]):
-       if k != False:
+       if k != "":
            i.Value = k
-       else:
-           pass
     ws.Range('E23').Value = "C08"
     ws.Range('E59').Value = 'Yes'
     ws.Range('E60').Value = 'C08 - DEA Licence/Narcotic'
@@ -54,10 +52,10 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False, Street = False , P
     df['KLIENT'] = '342'
     df['NR_BTM'] = BTM
     for i, k in zip(range(2, 8), [Name1, Name2, Name3, Street, PLZ, City]):
-        if k != False:
+        if k != "":
             df.iloc[0, i] = k
         else:
-            pass
+            continue
     new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx'
     df.to_excel(new_file1, index=False)
     wb3 = load_workbook(new_file1)
@@ -111,7 +109,7 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False, Street = False , P
     new_mail.Display()
 
     with sync_playwright() as p:
-        context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False, channel = "chrome", no_viewport=True)
+        context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
         page = context.new_page()
         page.goto(link_do_snow, wait_until="load")
         page.keyboard.press("Enter")
