@@ -28,6 +28,7 @@ import time
 # Sales_Rep =
 # Create_GTS_with_new_account =
 # License_Type =
+# zmienne musz byc wypisane jedna pod druga!!! Koniecznie!!!
 
 # Nie wypelniaj nastepujacych zmiennych.(tu zawse wpisz "") - id, Region, DMR_Reference_field_starts_with, Sales_Rep,
 # Create_GTS_with_new_account,License_Type,E-invoicing, Email_Address_Notes. W polu search_terem2 wpisuj "AWRZ/TP/".
@@ -40,26 +41,40 @@ import time
 # pod druga zeby kazda zmienna byla w oddzielnym wierszu a zmienne musza byc zawsze wyrownane do prawej - to wazne!
 # Zmienna "Name4" powinna zawsze laczyc zmienne  Name1 +" "+ Name2  +" "+ Name3!. zmienne wypisz jedna pod druga bez spacji.
 
+# ZMIENNE ZAWSZE MUSZA BYC NAPISANE ZAWSZE JEDNA POD DRUGA- TO WAŻNE!
+# nie uuzywaj czcionki proporcjonalnej i nie sklejaj skleja formatowania.
+#Wynik zwróć wyłącznie jako czysty tekst. Nie używaj tabel, markdown, bloków kodu, wypunktowań ani formatowania.
+#Każda zmienna musi rozpoczynać się od nowej linii.Pomiędzy zmiennymi nie może być pustych linii.Format każdej linii:
+#NazwaZmiennej="wartość"
+#Przykład:
+#Name1="Przykładowa praktyka"
+#Name2="Jan Kowalski"
+#Name3=""
+#Po znaku końca linii natychmiast rozpoczynaj następną zmienną.
+#Nie dodawaj żadnych komentarzy, wyjaśnień, nagłówków, źródeł ani tekstu przed pierwszą zmienną i po ostatniej zmiennej.
+#Zwróć wyłącznie listę zmiennych.
+#WYNIK ZWRÓĆ WEWNĄTRZ BLOKU KODU TXT. KAŻDA ZMIENNA MUSI ZNAJDOWAĆ SIĘ W OSOBNYM WIERSZU. POMIĘDZY ZMIENNYMI NIE MOŻE BYĆ PUSTYCH WIERSZY. NIE WOLNO ŁĄCZYĆ ZMIENNYCH W JEDNĄ LINIĘ.
+
 ################## tu wstaw dane z prompta
 
-id = "45676"
-Name1 = "MEDIVET"
-Name2 = "Laura Elisa Hartmann"
-Name3 = ""
-Name4 = "MEDIVET Laura Elisa Hartmann"
-Street_1 = "Asternstraße 2"
-City = "Teltow"
-Region = "test"
-Postal_Code = "14513"
-search_term2 = "AWRZ/TP/"
-Phone_Number = "+49 163 2880723"
-DMR_Reference_field_starts_with = ""
-E_Invoicing = ""
-Email_Address = "sabine.hoffmann@medivetgroup.com"
-Email_Address_Notes = ""
-Sales_Rep = ""
-Create_GTS_with_new_account = ""
-License_Type = ""
+id=""
+Name1="Tierarztpraxis Vogelperspektive"
+Name2="Dr. med. vet. Elsa Veronika"
+Name3="Lößner"
+Name4="Tierarztpraxis Vogelperspektive Dr. med. vet. Elsa Veronika Lößner"
+Street_1="Schwarzhölzlstraße 30"
+City="München"
+Region=""
+Postal_Code="80995"
+search_term2="AWRZ/TP/"
+Phone_Number="0151 228 046 49"
+DMR_Reference_field_starts_with=""
+E_Invoicing=""
+Email_Address="kontakt@vogel.vet"
+Email_Address_Notes=""
+Sales_Rep=""
+Create_GTS_with_new_account=""
+License_Type=""
 
 ########################################################################
 
@@ -83,7 +98,7 @@ license_types = {
 "RX": "RX-One time prescription"
 }
 
-templatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\Templatka do pythona GTS\(sold-to  change  DE01)   CMD_template4.1.4.xlsm'
+templatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
 lista_salesow = rf'C:\Users\02703821\Elanco\DACH_SFE Team_RedData - PLZ Liste DE,AT,CH\2026 (ab 01.08.206)\2026 PLZ Übersicht D-A-CH (Stand 01.10.2026).xlsx'
 robocze =rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\'
 
@@ -95,11 +110,14 @@ class Veeva:
 
 
         self.p = sync_playwright().start()
-        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,channel= 'chrome', no_viewport=True)
+        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
         self.page = self.context.new_page()
-        self.page.goto("https://elanco.veevanetwork.com", wait_until="networkidle")
+        self.page.goto("https://elanco.veevanetwork.com", wait_until="load")
         self.page.get_by_role("button", name="Add Record").click()
-        input("Click enter to continue...")
+        self.page.get_by_text("HCO", exact=True).wait_for()
+        self.page.get_by_text("HCO", exact=True).click()
+        self.page.get_by_text("Germany", exact=True).wait_for()
+        self.page.get_by_text("Germany", exact=True).click()
         self.page.get_by_role("button", name="Next").click()
         self.page.get_by_text("New Address").click()
         self.page.get_by_role("listitem").filter(has_text="Corporate Name*").get_by_test_id("input").fill(Name4)
@@ -163,9 +181,9 @@ class DE:
         self.ws.Range('E56').Value = self.sales_odpowiedzialny()
         self.ws.Range("E59").Value = "Yes"
         self.ws.Range('E60').Value = license_types[lic_type]
-        self.wb.SaveAs(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{id} .xlsm')
+        self.wb.SaveAs(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{Name1}.xlsm')
         self.wb.Close()
         self.excel.Quit()
 
-# Veeva()
-DE().nowe_sold_to_templatka_i_snowticket("C06")
+Veeva()
+# DE().nowe_sold_to_templatka_i_snowticket("C06")

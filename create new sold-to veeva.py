@@ -25,6 +25,7 @@ import time
 # Sales_Rep =
 # Create_GTS_with_new_account =
 # License_Type =
+# zmienne musz byc wypisane jedna pod druga!!! Koniecznie!!!
 
 # Nie wypelniaj nastepujacych zmiennych.(tu zawse wpisz "") - id, Region, DMR_Reference_field_starts_with, Sales_Rep,
 # Create_GTS_with_new_account,License_Type,E-invoicing, Email_Address_Notes. W polu search_terem2 wpisuj "AWRZ/TP/".
@@ -36,48 +37,41 @@ import time
 # Nazw zmiennych nie podawaj w cudzyslowiach podawaj zawsze w cudzyslowiach wartosci zmiennych. Zmienne umiejszczaj zawsze jedna zmienna
 # pod druga zeby kazda zmienna byla w oddzielnym wierszu a zmienne musza byc zawsze wyrownane do prawej - to wazne!
 # Zmienna "Name4" powinna zawsze laczyc zmienne  Name1 +" "+ Name2  +" "+ Name3!. zmienne wypisz jedna pod druga bez spacji.
-# ZMIENNE ZAWSZE MUSZA BYC NAPISANE ZAWSZE JEDNA POD DRUGA- TO WAŻNE!
 
+# ZMIENNE ZAWSZE MUSZA BYC NAPISANE ZAWSZE JEDNA POD DRUGA- TO WAŻNE!
+# nie uuzywaj czcionki proporcjonalnej i nie sklejaj skleja formatowania.
+#Wynik zwróć wyłącznie jako czysty tekst. Nie używaj tabel, markdown, bloków kodu, wypunktowań ani formatowania.
+#Każda zmienna musi rozpoczynać się od nowej linii.Pomiędzy zmiennymi nie może być pustych linii.Format każdej linii:
+#NazwaZmiennej="wartość"
+#Przykład:
+#Name1="Przykładowa praktyka"
+#Name2="Jan Kowalski"
+#Name3=""
+#Po znaku końca linii natychmiast rozpoczynaj następną zmienną.
+#Nie dodawaj żadnych komentarzy, wyjaśnień, nagłówków, źródeł ani tekstu przed pierwszą zmienną i po ostatniej zmiennej.
+#Zwróć wyłącznie listę zmiennych.
+#WYNIK ZWRÓĆ WEWNĄTRZ BLOKU KODU TXT. KAŻDA ZMIENNA MUSI ZNAJDOWAĆ SIĘ W OSOBNYM WIERSZU. POMIĘDZY ZMIENNYMI NIE MOŻE BYĆ PUSTYCH WIERSZY. NIE WOLNO ŁĄCZYĆ ZMIENNYCH W JEDNĄ LINIĘ.
 
 #########################
 
-id = ""
-
-Name1 = "Universität Hohenheim"
-
-Name2 = "Zentrale Versuchstierhaltung 670ZVH"
-
-Name3 = "Dr. Jutta Mönchenberg"
-
-Name4 = "Universität Hohenheim Zentrale Versuchstierhaltung Dr. Jutta Mönchenberg"
-
-Street_1 = "Schwerzstr. 15/1"
-
-City = "Stuttgart"
-
-Region = ""
-
-Postal_Code = "70593"
-
-search_term2 = "AWRZ/TP/"
-
-Phone_Number = "+49 (0)711 459 24353"
-
-DMR_Reference_field_starts_with = ""
-
-E_Invoicing = ""
-
-Email_Address = "suzana.cvek@uni-hohenheim.de"
-
-Email_Address_Notes = ""
-
-Sales_Rep = ""
-
-Create_GTS_with_new_account = ""
-
-License_Type = ""
-
-
+id=""
+Name1="Tierarztpraxis"
+Name2="Vogelperspektive"
+Name3="Elsa Veronika Lößner"
+Name4="Tierarztpraxis Vogelperspektive Elsa Veronika Lößner"
+Street_1="Schwarzhölzlstr. 30"
+City="München"
+Region=""
+Postal_Code="80995"
+search_term2="AWRZ/TP/"
+Phone_Number="0151 228 046 49"
+DMR_Reference_field_starts_with=""
+E_Invoicing=""
+Email_Address="kontakt@vogel.vet"
+Email_Address_Notes=""
+Sales_Rep=""
+Create_GTS_with_new_account=""
+License_Type=""
 #################################
 
 
