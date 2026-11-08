@@ -4,6 +4,7 @@ import os
 from playwright.sync_api import sync_playwright
 import time
 
+from pywinauto.timings import wait_until
 
 # prompt
 # Przeanalizuj dokukent zalaczoy w mailu (licencje) i maila i podaj mi nazwe praktyki z podzialem na zmienne Name1, Name2 oraz
@@ -58,24 +59,23 @@ import time
 ################## tu wstaw dane z prompta
 
 id=""
-Name1="Tierarztpraxis Vogelperspektive"
-Name2="Dr. med. vet. Elsa Veronika"
-Name3="Lößner"
-Name4="Tierarztpraxis Vogelperspektive Dr. med. vet. Elsa Veronika Lößner"
-Street_1="Schwarzhölzlstraße 30"
-City="München"
+Name1="Kleintierpraxis Einhorn"
+Name2="Christine Rudolph"
+Name3=""
+Name4="Kleintierpraxis Einhorn Christine Rudolph"
+Street_1="Altstädter Platz 4"
+City="Fürstenwalde"
 Region=""
-Postal_Code="80995"
+Postal_Code="15517"
 search_term2="AWRZ/TP/"
-Phone_Number="0151 228 046 49"
+Phone_Number="03361 2523"
 DMR_Reference_field_starts_with=""
 E_Invoicing=""
-Email_Address="kontakt@vogel.vet"
+Email_Address="intern@kleintierpraxis-einhorn.de"
 Email_Address_Notes=""
 Sales_Rep=""
 Create_GTS_with_new_account=""
-License_Type=""
-
+License_Type= "C06"
 ########################################################################
 
 
@@ -101,6 +101,7 @@ license_types = {
 templatka = r'C:\Users\02703821\Elanco\CH - Bestellung Monitoring\CMD_template4.1.4.xlsm'
 lista_salesow = rf'C:\Users\02703821\Elanco\DACH_SFE Team_RedData - PLZ Liste DE,AT,CH\2026 (ab 01.08.206)\2026 PLZ Übersicht D-A-CH (Stand 01.10.2026).xlsx'
 robocze =rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\\'
+snow_de = r"https://thespot.elanco.com/esc?id=sc_cat_item&sys_id=9d661f191b03d1105ca7eca3604bcb3a&sysparm_category=a20cb8eedb7c60905513c3af299619d0"
 
 os.system("taskkill /F /IM EXCEL.EXE >nul 2>nul")
 
@@ -108,16 +109,20 @@ class Veeva:
 
     def __init__(self):
 
-
         self.p = sync_playwright().start()
-        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
+        self.context = self.p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False,no_viewport= True, channel="chrome")
         self.page = self.context.new_page()
         self.page.goto("https://elanco.veevanetwork.com", wait_until="load")
         self.page.get_by_role("button", name="Add Record").click()
-        self.page.get_by_text("HCO", exact=True).wait_for()
-        self.page.get_by_text("HCO", exact=True).click()
-        self.page.get_by_text("Germany", exact=True).wait_for()
-        self.page.get_by_text("Germany", exact=True).click()
+        self.page.locator("#JQUID1").click()
+        self.page.locator("a").filter(has_text="HCP").click()
+        self.search = self.page.locator("input").first
+        self.page.keyboard.type("HCO")
+        self.page.keyboard.press("Enter")
+        self.page.locator("a").filter(has_text="Austria").click()
+        self.search2 = self.page.locator("input").first
+        self.page.keyboard.type("Germany")
+        self.page.keyboard.press("Enter")
         self.page.get_by_role("button", name="Next").click()
         self.page.get_by_text("New Address").click()
         self.page.get_by_role("listitem").filter(has_text="Corporate Name*").get_by_test_id("input").fill(Name4)
@@ -146,25 +151,34 @@ class Veeva:
         self.page.locator("#custom-fields > .sc-12dl7xo-0 > .sc-pfq3ln-0 > li > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").first.fill(Name1)
         self.page.locator(".sc-12dl7xo-0 > .sc-pfq3ln-0 > li:nth-child(3) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").fill(Name2)
         self.page.locator("#custom-fields > .sc-12dl7xo-0 > .sc-pfq3ln-0 > li:nth-child(5) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").fill(Name3)
-        time.sleep(300)
+        self.id = id
+        self.numer_klienta = input("please provide Customer Number: ")
 
 class DE:
 
     def __init__(self):
+
         self.excel = win32com.client.Dispatch('Excel.Application')
         self.excel.Visible = True
         self.wb = self.excel.Workbooks.Open(templatka)
         self.ws = self.wb.Worksheets('Sheet1')
+        self.ws.Range('A12').Value = 'DE01'
+        self.ws.Range('B12').Value = 'Change'
+        self.ws.Range('C12').Value = 'Sold-to'
+        self.veeva = veeva
 
     def sales_odpowiedzialny(self):
+
         self.df1 = pd.read_excel(lista_salesow, sheet_name='PLZ DE')
         self.df1.columns = self.df1.iloc[0]
         self.df1 = self.df1.iloc[1:]
         self.result = self.df1[self.df1.iloc[:, 0].astype(str).str.replace(".0", "", regex=False)== str(Postal_Code)]
         return  self.result.iloc[0, 4]
 
-    def nowe_sold_to_templatka_i_snowticket(self,lic_type = False):
-        self.ws.Range("E5").Value = id
+    def nowe_sold_to_templatka_DE_Create(self):
+
+
+        self.ws.Range('E5').Value = self.veeva.numer_klienta
         self.ws.Range('E8').Value = Name1
         self.ws.Range('E9').Value = Name2
         self.ws.Range('E10').Value = Name3
@@ -174,16 +188,62 @@ class DE:
         self.ws.Range('E17').Value = Postal_Code
         self.ws.Range('E19').Value = search_term2
         self.ws.Range('E20').Value = Phone_Number
-        self.ws.Range('E23').Value = lic_type
+        self.ws.Range('E23').Value = License_Type
         self.ws.Range('E25').Value = E_Invoicing
         self.ws.Range('E26').Value = Email_Address
         self.ws.Range('E27').Value = Email_Address_Notes
         self.ws.Range('E56').Value = self.sales_odpowiedzialny()
         self.ws.Range("E59").Value = "Yes"
-        self.ws.Range('E60').Value = license_types[lic_type]
-        self.wb.SaveAs(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{Name1}.xlsm')
+        self.ws.Range('E60').Value = license_types[License_Type]
+        self.new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{Name1}.xlsm'
+        self.wb.SaveAs(self.new_file)
         self.wb.Close()
         self.excel.Quit()
 
-Veeva()
-# DE().nowe_sold_to_templatka_i_snowticket("C06")
+class Snow:
+
+    def __init__(self, veeva, de):
+
+        self.veeva = veeva
+        self.de = de
+        self.page = self.veeva.context.new_page()
+
+    def open_ticket(self):
+        self.page.goto(snow_de, wait_until = "load")
+        self.page.keyboard.press("Enter")
+        self.page.locator("#s2id_sp_formfield_sales_organization a").click()
+        self.page.get_by_role("option", name="DE01").click()
+        self.page.locator("#s2id_sp_formfield_type_of_request a").click()
+        self.page.get_by_role("option", name="Create").click()
+        self.page.get_by_role("textbox", name="Customer Number").fill(veeva.numer_klienta)
+        self.page.locator("#s2id_sp_formfield_request_priority a").click()
+        self.page.get_by_role("option", name="Standard - 48 hours").click()
+        self.page.locator("#s2id_sp_formfield_distribution_channel a").click()
+        self.page.get_by_role("option", name="10-Domestic").click()
+        self.page.locator("#s2id_sp_formfield_multiple_requests a").click()
+        self.page.get_by_role("option", name="No", exact=True).click()
+        self.page.locator("#s2id_sp_formfield_account_group a").click()
+        self.page.get_by_role("option", name="Sold-to").click()
+        self.page.get_by_role("button", name="Upload Attachment for CMD").click()
+        with self.page.expect_file_chooser() as fc:
+            self.page.get_by_role("button",name="Upload Attachment for CMD").click()
+        for i in os.listdir(rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+            if i.endswith('xlsm'):
+                fc.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze',i))
+        with self.page.expect_file_chooser() as cf1:
+            self.page.get_by_role("button", name="Upload Attachment for VET").click()
+        for i in os.listdir(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze'):
+            if os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i).endswith(('.pdf', '.jpg', '.png')):
+                cf1.value.set_files(os.path.join(r'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze', i))
+        self.page.get_by_role("textbox", name="Additional information").fill("Hi Team, /n please create new sold-to (see attached)")
+        input("press enter to continue...")
+
+
+
+
+
+veeva = Veeva()
+de = DE()
+de.nowe_sold_to_templatka_DE_Create()
+snow = Snow(veeva, de)
+snow.open_ticket()
