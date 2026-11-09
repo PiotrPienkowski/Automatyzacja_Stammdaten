@@ -2,9 +2,6 @@ import win32com.client
 import pandas as pd
 import os
 from playwright.sync_api import sync_playwright
-import time
-
-from pywinauto.timings import wait_until
 
 # prompt
 # Przeanalizuj dokukent zalaczoy w mailu (licencje) i maila i podaj mi nazwe praktyki z podzialem na zmienne Name1, Name2 oraz
@@ -153,6 +150,7 @@ class Veeva:
         self.page.locator("#custom-fields > .sc-12dl7xo-0 > .sc-pfq3ln-0 > li:nth-child(5) > .sc-17jockg-10 > .sc-h9b1rc-2 > .sc-1us6m6n-2 > .sc-1us6m6n-0").fill(Name3)
         self.id = id
         self.numer_klienta = input("please provide Customer Number: ")
+        self.REGION = input("please provide Region: ")
 
 class DE:
 
@@ -166,6 +164,7 @@ class DE:
         self.ws.Range('B12').Value = 'Change'
         self.ws.Range('C12').Value = 'Sold-to'
         self.veeva = veeva
+
 
     def sales_odpowiedzialny(self):
 
@@ -184,7 +183,7 @@ class DE:
         self.ws.Range('E10').Value = Name3
         self.ws.Range('E12').Value = Street_1
         self.ws.Range('E14').Value = City
-        self.ws.Range('E16').Value = Region
+        self.ws.Range('E16').Value = self.veeva.REGION
         self.ws.Range('E17').Value = Postal_Code
         self.ws.Range('E19').Value = search_term2
         self.ws.Range('E20').Value = Phone_Number
