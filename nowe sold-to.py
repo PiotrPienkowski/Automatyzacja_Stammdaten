@@ -56,23 +56,23 @@ from playwright.sync_api import sync_playwright
 ################## tu wstaw dane z prompta
 
 id=""
-Name1="Kleintierpraxis Einhorn"
-Name2="Christine Rudolph"
+Name1="DVM Ina Wiebelitz"
+Name2=""
 Name3=""
-Name4="Kleintierpraxis Einhorn Christine Rudolph"
-Street_1="Altstädter Platz 4"
-City="Fürstenwalde"
+Name4="DVM Ina Wiebelitz"
+Street_1="Kirchsteg 4"
+City="Leitzkau"
 Region=""
-Postal_Code="15517"
+Postal_Code="39279"
 search_term2="AWRZ/TP/"
-Phone_Number="03361 2523"
+Phone_Number=""
 DMR_Reference_field_starts_with=""
 E_Invoicing=""
-Email_Address="intern@kleintierpraxis-einhorn.de"
+Email_Address="ina.wiebelitz@web.de"
 Email_Address_Notes=""
 Sales_Rep=""
 Create_GTS_with_new_account=""
-License_Type= "C06"
+License_Type=""
 ########################################################################
 
 
@@ -193,7 +193,7 @@ class DE:
         self.ws.Range('E27').Value = Email_Address_Notes
         self.ws.Range('E56').Value = self.sales_odpowiedzialny()
         self.ws.Range("E59").Value = "Yes"
-        self.ws.Range('E60').Value = license_types[License_Type]
+        self.ws.Range('E60').Value = license_types.get(License_Type, "")
         self.new_file = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\{Name1}.xlsm'
         self.wb.SaveAs(self.new_file)
         self.wb.Close()
