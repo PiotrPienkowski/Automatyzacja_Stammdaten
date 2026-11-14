@@ -54,10 +54,8 @@ def C08(CN, BTM, Name1 = False, Name2 = False, Name3 = False, Street = False , P
     df['KLIENT'] = '342'
     df['NR_BTM'] = BTM
     for i, k in zip(range(2, 8), [Name1, Name2, Name3, Street, PLZ, City]):
-        if k !=  False or "":
+        if k and k.strip():
             df.iloc[0, i] = k
-        else:
-            continue
     new_file1 = rf'C:\Users\02703821\OneDrive - Elanco\Desktop\robocze\pharmlog {CN}.xlsx'
     df.to_excel(new_file1, index=False)
     wb3 = load_workbook(new_file1)

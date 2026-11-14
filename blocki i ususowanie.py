@@ -102,7 +102,7 @@ class de(snow_ticket):
         self.zapisywanie()
         self.snow_de()
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please set central order block")
-        time.sleep(300)
+
 
     def remove_central_order_block(self):
         self.ws.Range('E13').Value = 'Reset (Remove)'
@@ -110,14 +110,14 @@ class de(snow_ticket):
         self.zapisywanie()
         self.snow_de()
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block")
-        time.sleep(300)
+
 
     def remove_deletion_flag(self):
         self.ws.Range('E12').Value = 'Reset (Remove)'
         self.zapisywanie()
         self.snow_de("Deletion Flag")
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove deletion flag")
-        time.sleep(300)
+
 
     def remove_central_order_and_deletion_flag(self):
         self.ws.Range('E12').Value= 'Reset (Remove)'
@@ -126,7 +126,7 @@ class de(snow_ticket):
         self.zapisywanie()
         self.snow_de("Deletion Flag")
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block and deletion flag")
-        time.sleep(300)
+
 
 class ch(de):
 
@@ -144,7 +144,7 @@ class ch(de):
         self.zapisywanie()
         self.snow_ch()
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please set central order block")
-        time.sleep(300)
+
 
     def remove_central_order_block(self):
         self.ws.Range('E13').Value = 'Reset (Remove)'
@@ -152,14 +152,14 @@ class ch(de):
         self.zapisywanie()
         self.snow_ch("Deletion Flag")
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block")
-        time.sleep(300)
+
 
     def remove_deletion_flag(self):
         self.ws.Range('E12').Value= 'Reset (Remove)'
         self.zapisywanie()
         self.snow_ch("Deletion Flag")
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove deletion flag")
-        time.sleep(300)
+
 
     def remove_central_order_and_deletion_flag(self):
         self.ws.Range('E12').Value = 'Reset (Remove)'
@@ -168,28 +168,53 @@ class ch(de):
         self.zapisywanie()
         self.snow_ch("Deletion Flag")
         self.page.get_by_role("textbox", name="Additional information").fill(rf"Hi Team, for {self.CN} please remove central order block and deletion flag")
-        time.sleep(300)
 
 
 class veeva:
 
-    def __init__(self,CN):
+    def __init__(self, CN, context):
         self.CN = CN
+        self.context = context
 
     def zamykanie(self):
-        with sync_playwright() as p:
-            self.context = p.chromium.launch_persistent_context(user_data_dir="veeva_profile", headless=False)
-            self.new_page = self.context.new_page()
-            self.new_page.goto("https://elanco.veevanetwork.com/ui/",wait_until="networkidle")
-            self.search = self.new_page.locator(".input").first
-            self.search.fill(self.CN)
-            self.search.press("Enter")
-            input("wait")
+
+        self.new_page = self.context.new_page()
+        self.new_page.goto("https://elanco.veevanetwork.com/ui/",wait_until="networkidle")
+        self.search = self.new_page.locator(".input").first
+        self.search.fill("00" + self.CN)
+        self.search.press("Enter")
+        input("wait")
+
+slownik_akcji = {
+    "1": lambda x: x.set_central_order_block(),
+    "2": lambda x: x.remove_central_order_block(),
+    "3": lambda x: x.remove_deletion_flag(),
+    "4": lambda x: x.remove_central_order_and_deletion_flag(),
+}
+
+slownik_mapujacy_klasy = {"de": de, "ch": ch}
+
+wybor_vevea = ["yes","no"]
+
+CN = input("please provide Customer Number: ").strip()
+Sales_org = input("please provide Sales Org (de or ch): ").strip().lower()
+akcja = input("what do you want to do: \n 1: set_central_order_block, \n 2:""remove_central_order_block, \n3: remove_deletion_flag, \n4:"" remove_central_order_and_deletion_flag: ").strip()
+wybrac_vevea = input("do you want me to open veeva (please enter: 'yes' or 'no'): ").strip().lower()
+
+obiekt_ticketu = slownik_mapujacy_klasy[Sales_org](CN)
+slownik_akcji[akcja](obiekt_ticketu)
+if wybrac_vevea == "yes":
+    veeva(CN,obiekt_ticketu.context).zamykanie()
+
+# obiekt_ticketu.slownik_akcji[akcja]
+# slownik_akcji[akcja](obiekt_ticketu)
+# veeva("00"+CN).zamykanie()
 
 
 
 
-de("50911172").set_central_order_block()
+
+# de("50911172").set_central_order_block()
 # veeva("0050911172").zamykanie()
 
 #RITM0717223
